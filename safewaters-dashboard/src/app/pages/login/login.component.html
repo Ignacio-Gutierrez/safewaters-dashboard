@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="flex flex-col items-center justify-center min-h-screen p-4">
+  <h2 class="text-7xl mb-3 font-pirata-one text-[#033A44]">SafeWaters</h2>
+  <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-md w-full max-w-md">
+    <h3 class="text-2xl mb-3">Iniciar Sesión</h3>
+
+    <form [formGroup]="loginForm()">
+
+      <div class="mb-1">
+
+        <mat-form-field class="w-full mb-3" appearance="fill">
+          <mat-label>Usuario o Correo electrónico</mat-label>
+          <input type="text" matInput formControlName="usernameOrEmail" [errorStateMatcher]="matcher">
+          @if (loginForm().get('usernameOrEmail')?.hasError('required')) {
+          <mat-error>Este campo es requerido</mat-error>
+          }
+          <mat-icon matPrefix>person</mat-icon>
+        </mat-form-field>
+
+
+        <mat-form-field class="w-full" appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
+          @if (loginForm().get('password')?.hasError('required')) {
+          <mat-error>Contraseña requerida</mat-error>
+          }
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()">
+            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+      </div>
+
+    </form>
+
+    <button mat-flat-button class="w-full rounded-lg" (click)="onSubmit()">Ingresar</button>
+
+  </div>
+</div>
