@@ -1,0 +1,20 @@
+<div
+    style="background: var(--mat-sys-primary); color: var(--mat-sys-on-primary);">
+    
+    <nav class="fixed w-full flex justify-between px-8 py-2">
+
+        <div class="flex space-x-2 cursor-pointer hover:scale-105" (click)="goToDashboard()">
+            <img src="/logo.svg" alt="Logo de la compañía" class="h-10 w-10" />
+            <span class="text-3xl font-pirata-one tracking-wide py-1">SafeWaters</span>
+        </div>
+        <div>
+            <button mat-button (click)="logout()"
+                class="flex gap-2 text-lg transition duration-200 hover:text-red-400 hover:scale-105"
+                style="color: var(--mat-sys-on-primary);">
+                <mat-icon>logout</mat-icon>
+                Cerrar sesión
+            </button>
+        </div>
+    </nav>
+    <div class="pt-14"></div>
+</div>
