@@ -28,6 +28,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -63,7 +64,8 @@
               "buildTarget": "safewaters-dashboard:build:production"
             },
             "development": {
-              "buildTarget": "safewaters-dashboard:build:development"
+              "buildTarget": "safewaters-dashboard:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
