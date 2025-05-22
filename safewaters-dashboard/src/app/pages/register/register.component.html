@@ -1,1 +1,89 @@
-<p>register works!</p>
+<div class="flex flex-col items-center justify-center min-h-screen p-4">
+    <h2 class="text-7xl mb-3 font-pirata-one text-[#033A44]">SafeWaters</h2>
+    <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-md w-full max-w-md">
+        <h3 class="text-2xl mb-3">Crear Cuenta</h3>
+
+        <form [formGroup]="registerForm()">
+
+            <div class="mb-1">
+
+                <mat-form-field class="w-full mb-3" appearance="fill">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input type="text" matInput formControlName="username" [errorStateMatcher]="matcher">
+                    @if (registerForm().get('username')?.hasError('required')) {
+                    <mat-error>Nombre de usuario requerido</mat-error>
+                    }
+                    @if (registerForm().get('username')?.hasError('usernameExists')) {
+                    <mat-error>Este nombre de usuario ya está en uso.</mat-error>
+                    }
+                    <mat-icon matPrefix>account_circle</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-3" appearance="fill">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher">
+                    @if (registerForm().get('email')?.hasError('required')) {
+                    <mat-error>Correo electrónico requerido</mat-error>
+                    }
+                    @if (registerForm().get('email')?.hasError('email')) {
+                    <mat-error>Por favor, ingresa un correo válido</mat-error>
+                    }
+                    @if (registerForm().get('email')?.hasError('emailExists')) {
+                    <mat-error>Este correo electrónico ya está registrado.</mat-error>
+                    }
+                    <mat-icon matPrefix>email</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-3" appearance="fill">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [type]="hideP() ? 'password' : 'text'" formControlName="password" />
+                    <mat-icon matPrefix>password</mat-icon>
+                    <button mat-icon-button matSuffix (click)="clickEventP($event)" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hideP()">
+                        <mat-icon>{{hideP() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    @if (registerForm().get('password')?.hasError('required')) {
+                    <mat-error>Contraseña requerida</mat-error>
+                    } @else if (registerForm().get('password')?.hasError('minlength')) {
+                    <mat-error>La contraseña debe tener al menos 8 caracteres</mat-error>
+                    } @else if (registerForm().get('password')?.hasError('hasUpperCase')) {
+                    <mat-error>La contraseña debe tener al menos una letra mayúscula</mat-error>
+                    } @else if (registerForm().get('password')?.hasError('hasLowerCase')) {
+                    <mat-error>La contraseña debe tener al menos una letra minúscula</mat-error>
+                    } @else if (registerForm().get('password')?.hasError('hasDigit')) {
+                    <mat-error>La contraseña debe tener al menos un número</mat-error>
+                    } @else if (registerForm().get('password')?.hasError('hasSpecialCharacter')) {
+                    <mat-error>La contraseña debe tener al menos un carácter especial</mat-error>
+                    } @else if (registerForm().get('password')?.hasError('hasNoSpaces')) {
+                    <mat-error>La contraseña no debe contener espacios</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-3" appearance="fill">
+                    <mat-label>Confirmar Contraseña</mat-label>
+                    <input matInput [type]="hideConfP() ? 'password' : 'text'" formControlName="confirmPassword" />
+                    <mat-icon matPrefix>password</mat-icon>
+                    <button mat-icon-button matSuffix (click)="clickEventConfP($event)"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfP()">
+                        <mat-icon>{{hideConfP() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    @if (registerForm().get('password')?.value !== registerForm().get('confirmPassword')?.value) {
+                    <mat-error>
+                        Las contraseñas no coinciden
+                    </mat-error>
+                    }
+                </mat-form-field>
+
+            </div>
+
+        </form>
+
+        <button class="mb-5 w-full text-left cursor-pointer hover:underline active:text-yellow-900"
+            (click)="navigateToLogin()" style="color: var(--mat-sys-primary)">
+            ¿Ya tenés cuenta? Iniciar Sesión
+        </button>
+
+        <button mat-flat-button class="w-full rounded-lg" (click)="onSubmitRegister()">Registrarse</button>
+
+    </div>
+</div>
