@@ -1,4 +1,4 @@
-import {Component, signal} from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   FormGroup,
   FormsModule,
@@ -8,14 +8,14 @@ import {
   NgForm,
   Validators,
 } from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AuthService } from '../../services/auth.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -26,7 +26,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 @Component({
   selector: 'app-login',
-  imports: [MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, 
+  imports: [MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule,
     ReactiveFormsModule, FormsModule,
   ],
   templateUrl: './login.component.html',
@@ -44,7 +44,7 @@ export class LoginComponent {
   matcher = new MyErrorStateMatcher();
   hide = signal(true);
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
@@ -78,6 +78,11 @@ export class LoginComponent {
       console.error('Formulario inválido');
     }
   }
+
+  navigateToRegister() {
+    this.router.navigateByUrl('/register');
+  }
+
 }
 export interface LoginRequest {
   username?: string;
