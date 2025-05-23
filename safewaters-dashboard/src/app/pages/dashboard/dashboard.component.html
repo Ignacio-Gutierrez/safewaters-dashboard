@@ -1,1 +1,96 @@
-<p>dashboard works!</p>
+<app-navbar></app-navbar>
+
+<div class="w-full h-full p-5 flex flex-col items-center">
+
+    <div class="flex justify-between items-center mt-20 border-b-2 pb-2 mb-6 w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%]">
+        <h2 class="text-2xl font-bold text-gray-800 tracking-wider">
+            Perfiles Gestionados
+        </h2>
+        <button mat-fab extended (click)="createProfile()">
+            <mat-icon>add_moderator</mat-icon>
+            <span class="text-base" >Nuevo perfil</span>
+        </button>
+    </div>
+
+    @if (!isLoading && !errorLoadingProfiles && managedProfiles.length > 0) {
+    <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 justify-items-center max-w-[96rem] mx-auto">
+        @for (profile of managedProfiles; track profile.id) {
+        <mat-card appearance="outlined"
+            class="min-w-[22rem] max-w-xl cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95"
+            (click)="viewProfileDetails(profile.id)">
+            <mat-card-header>
+                <mat-card-title-group class="flex flex-col pb-2">
+                    <div class="flex items-center">
+                        <mat-icon>admin_panel_settings</mat-icon>
+                        <mat-card-title class="font-medium self-start ml-1">{{ profile.profile_name }}</mat-card-title>
+                    </div>
+                    <div>
+                        <mat-card-subtitle class="text-center text-sky-950">
+                            @if (profile.link_status === 'waiting_for_link') {
+                            Sin enlazar
+                            <mat-icon class="text-yellow-500 align-middle">link_off</mat-icon>
+                            } @else {
+                            Enlazado
+                            <mat-icon class="text-green-500 align-middle">check_circle</mat-icon>
+                            }
+                        </mat-card-subtitle>
+                    </div>
+                </mat-card-title-group>
+            </mat-card-header>
+
+            <mat-divider class="border-gray-400"></mat-divider>
+
+            <mat-card-content class="pt-2 pb-2">
+                <p class="flex items-center mt-1">
+                    <mat-icon class="mr-1">schedule</mat-icon>
+                    <span class="font-medium">Última comunicación:&nbsp;</span>
+                    {{ profile.last_extension_communication | date:'short' }}
+                </p>
+                <p class="flex items-center mt-1">
+                    <mat-icon class="mr-1">qr_code</mat-icon>
+                    <span class="font-medium">Código de enlace:&nbsp;</span>
+                    {{ profile.link_code }}
+                </p>
+                <p class="flex items-center mt-1 mb-1">
+                    <mat-icon class="mr-1">gavel</mat-icon>
+                    <span class="font-medium">Reglas activas:&nbsp;</span>
+                    metele algo aca
+            </mat-card-content>
+
+            <mat-divider class="border-gray-400"></mat-divider>
+
+               <mat-card-actions class="flex justify-around">                
+                <button mat-flat-button (click)="editProfile(profile.id); $event.stopPropagation()">
+                    Editar Nombre</button>                 
+                <button mat-stroked-button (click)="deleteProfile(profile.id); $event.stopPropagation()">
+                    Eliminar</button>
+            </mat-card-actions>
+        </mat-card>
+        }
+    </div>
+
+    } @else {
+    <div class="flex justify-center items-center h-[80%]">
+        @if (isLoading) {
+        <div class="text-center">
+            <p class="font-pirata-one text-2xl mb-2">Cargando perfiles...</p>
+            <mat-spinner class="mx-auto"></mat-spinner>
+        </div>
+        }
+        @if (errorLoadingProfiles && !isLoading) {
+        <div class="alert alert-danger" role="alert">
+            <p>Error al cargar los perfiles. Por favor, inténtalo de nuevo más
+                tarde.
+            </p>
+        </div>
+        }
+        @if (!isLoading && !errorLoadingProfiles && managedProfiles.length === 0) {
+        <div class="alert alert-info" role="alert">
+            <p> No hay perfiles gestionados para mostrar.
+            </p>
+        </div>
+        }
+    </div>
+    }
+</div>
