@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+<mat-dialog-content [formGroup]="createProfileForm">
+    <p class="mb-4">Por favor, introduce un nombre para el perfil.</p>
+    <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Nombre del Perfil</mat-label>
+        <input matInput formControlName="profileName" cdkFocusInitial>
+        @if (createProfileForm.get('profileName')?.hasError('required') &&
+        createProfileForm.get('profileName')?.touched) {
+        <mat-error>El nombre del perfil es obligatorio.</mat-error>
+        }
+        @if (createProfileForm.get('profileName')?.hasError('minlength') &&
+        createProfileForm.get('profileName')?.touched) {
+        <mat-error>Debe tener al menos 3 caracteres.</mat-error>
+        }
+        @if (createProfileForm.get('profileName')?.hasError('maxlength') &&
+        createProfileForm.get('profileName')?.touched) {
+        <mat-error>No puede exceder los 100 caracteres.</mat-error>
+        }
+        @if (createProfileForm.get('profileName')?.hasError('profileNameExists')) {
+        <mat-error>Este nombre de perfil ya está en uso.</mat-error>
+        }
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-stroked-button (click)="onCancel()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="createProfileForm.invalid || isSaving">
+        @if (isSaving) {
+        <span>Guardando...</span>
+        } @else {
+        <span>Guardar</span>
+        }
+    </button>
+</mat-dialog-actions>
