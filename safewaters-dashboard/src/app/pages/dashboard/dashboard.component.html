@@ -18,7 +18,7 @@
         @for (profile of managedProfiles; track profile.id) {
         <mat-card appearance="outlined"
             class="min-w-[22rem] max-w-xl cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95"
-            (click)="viewProfileDetails(profile.id)">
+            (click)="viewProfileDetails(profile.id, profile.profile_name)">
             <mat-card-header>
                 <mat-card-title-group class="flex flex-col pb-2">
                     <div class="flex items-center">

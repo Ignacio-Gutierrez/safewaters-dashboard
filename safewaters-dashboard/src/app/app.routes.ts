@@ -10,6 +10,6 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'profile/:id', component: ProfileManagementComponent },
+    { path: 'profile/:id/:name', component: ProfileManagementComponent },
     { path: '**', redirectTo: '/login' }
 ];

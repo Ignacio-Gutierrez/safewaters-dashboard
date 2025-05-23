@@ -103,9 +103,9 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  viewProfileDetails(id: number): void {
+  viewProfileDetails(id: number, profile_name: string): void {
     console.log('Attempting to view profile with id:', id);
-    this.router.navigate(['/profile', id]);
+    this.router.navigate(['/profile', id, profile_name]);
   }
 
   createProfile(): void {
