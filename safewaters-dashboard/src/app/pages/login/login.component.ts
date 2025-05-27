@@ -40,6 +40,8 @@ export class LoginComponent {
     })
   );
 
+  loginError = signal<string | null>(null);
+
 
   matcher = new MyErrorStateMatcher();
   hide = signal(true);
@@ -54,6 +56,7 @@ export class LoginComponent {
 
 
   onSubmit(): void {
+    this.loginError.set(null);
     if (this.loginForm().valid) {
       const { usernameOrEmail, password } = this.loginForm().value;
       let credentials: LoginRequest = { password: password! };
@@ -72,6 +75,11 @@ export class LoginComponent {
         },
         error: (err) => {
           console.error('Error en login:', err);
+          if (err.status === 401) {
+            this.loginError.set('Credencial icorrecta.');
+          } else {
+            this.loginError.set('Ocurrió un error. Por favor, inténtalo de nuevo.');
+          }
         },
       });
     } else {

@@ -34,8 +34,17 @@
 
     </form>
 
+    <div class="h-6">
+      @if (loginError()) {
+
+      <mat-error class="m-0">
+        <mat-icon class="mr-1 align-middle">warning</mat-icon>
+        {{ loginError() }}</mat-error>
+      }
+    </div>
+
     <button class="mb-5 w-full text-left cursor-pointer hover:underline active:text-yellow-900"
-    (click)="navigateToRegister()" style="color: var(--mat-sys-primary)">
+      (click)="navigateToRegister()" style="color: var(--mat-sys-primary)">
       ¿No tenés cuenta? Registrate
     </button>
 
