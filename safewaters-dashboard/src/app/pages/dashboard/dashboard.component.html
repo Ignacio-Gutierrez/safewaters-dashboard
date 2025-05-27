@@ -8,7 +8,7 @@
         </h2>
         <button mat-fab extended (click)="createProfile()">
             <mat-icon>add_moderator</mat-icon>
-            <span class="text-base" >Nuevo perfil</span>
+            <span class="text-base">Nuevo perfil</span>
         </button>
     </div>
 
@@ -60,9 +60,9 @@
 
             <mat-divider class="border-gray-400"></mat-divider>
 
-               <mat-card-actions class="flex justify-around">                
+            <mat-card-actions class="flex justify-around">
                 <button mat-flat-button (click)="editProfile(profile.id); $event.stopPropagation()">
-                    Editar Nombre</button>                 
+                    Editar Nombre</button>
                 <button mat-stroked-button (click)="deleteProfile(profile.id); $event.stopPropagation()">
                     Eliminar</button>
             </mat-card-actions>
@@ -79,16 +79,17 @@
         </div>
         }
         @if (errorLoadingProfiles && !isLoading) {
-        <div class="alert alert-danger" role="alert">
+        <div class="mt-6 text-center">
+            <mat-icon class="text-[40px] h-[40px] w-[40px]">info</mat-icon>
             <p>Error al cargar los perfiles. Por favor, inténtalo de nuevo más
                 tarde.
             </p>
         </div>
         }
         @if (!isLoading && !errorLoadingProfiles && managedProfiles.length === 0) {
-        <div class="alert alert-info" role="alert">
-            <p> No hay perfiles gestionados para mostrar.
-            </p>
+        <div class="mt-6 text-center">
+            <mat-icon class="text-[40px] h-[40px] w-[40px]">info</mat-icon>
+            <p class="text-xl mt-2">No hay perfiles gestionados para mostrar.</p>
         </div>
         }
     </div>
