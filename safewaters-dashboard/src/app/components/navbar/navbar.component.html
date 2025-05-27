@@ -1,6 +1,6 @@
 <div class="fixed top-0 left-0 w-full z-50 shadow-lg"
     style="background: var(--mat-sys-primary); color: var(--mat-sys-on-primary);">
-    
+
     <nav class="fixed w-full flex justify-between px-8 py-2">
 
         <div class="flex space-x-2 cursor-pointer hover:scale-105" (click)="goToDashboard()">
@@ -11,8 +11,10 @@
             <button mat-button (click)="logout()"
                 class="flex text-lg transition duration-200 hover:text-red-400 hover:scale-105"
                 style="color: var(--mat-sys-on-primary);">
-                <mat-icon class="text-[26px] h-[26px] w-[26px]">logout</mat-icon>
-                <span class="hidden md:inline">Cerrar sesión</span>
+                <div class="align-middle">
+                    <mat-icon class="text-[26px] h-[26px] w-[26px] align-middle">logout</mat-icon>
+                    <span class="hidden md:inline ml-2">Cerrar sesión</span>
+                </div>
             </button>
         </div>
     </nav>
