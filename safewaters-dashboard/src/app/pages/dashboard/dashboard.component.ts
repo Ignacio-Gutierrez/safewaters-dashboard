@@ -11,7 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CreateProfileDialogComponent } from '../../components/create-profile-dialog/create-profile-dialog.component'; // Importar el componente de diálogo
+import { ProfileDialogComponent } from '../../components/profile-dialog/profile-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    const dialogRef = this.dialog.open(CreateProfileDialogComponent, {
+    const dialogRef = this.dialog.open(ProfileDialogComponent, {
       width: '450px',
       disableClose: true,
       data: { isEditMode: true, profile: profileToEdit }
@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createProfile(): void {
-    const dialogRef = this.dialog.open(CreateProfileDialogComponent, {
+    const dialogRef = this.dialog.open(ProfileDialogComponent, {
       width: '450px',
       disableClose: true,
       data: { isEditMode: false }

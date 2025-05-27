@@ -9,7 +9,7 @@ import { ManagedProfilesService, ManagedProfileRequest, ManagedProfileResponse }
 
 
 @Component({
-  selector: 'app-create-profile-dialog',
+  selector: 'app-profile-dialog',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -18,10 +18,10 @@ import { ManagedProfilesService, ManagedProfileRequest, ManagedProfileResponse }
     MatInputModule,
     MatButtonModule
   ],
-  templateUrl: './create-profile-dialog.component.html',
-  styleUrl: './create-profile-dialog.component.css'
+  templateUrl: './profile-dialog.component.html',
+  styleUrl: './profile-dialog.component.css'
 })
-export class CreateProfileDialogComponent {
+export class ProfileDialogComponent {
   createProfileForm: FormGroup;
   isSaving: boolean = false;
   dialogTitle: string;
@@ -29,7 +29,7 @@ export class CreateProfileDialogComponent {
 
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<CreateProfileDialogComponent>,
+    public dialogRef: MatDialogRef<ProfileDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CreateProfileDialogData,
     private managedProfilesService: ManagedProfilesService
   ) {
