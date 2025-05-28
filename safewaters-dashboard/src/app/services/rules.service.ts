@@ -15,14 +15,14 @@ export class RulesService {
     private router: Router
   ) { }
 
-  getRules(managedProfileId: number): Observable<RuleResponse[]> {
+  getRulesByManagedProfileId(managedProfileId: number): Observable<RuleResponse[]> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'accept': 'application/json'
     });
 
-    return this.httpClient.get<RuleResponse[]>(`${this.apiUrl}/api/managed_profiles/${managedProfileId}/blocking-rules/`, { headers })
+    return this.httpClient.get<RuleResponse[]>(`${this.apiUrl}/api/managed-profiles/${managedProfileId}/blocking-rules/`, { headers })
       .pipe(
         catchError(this.handleError)
       );
