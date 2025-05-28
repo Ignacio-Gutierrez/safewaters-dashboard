@@ -48,7 +48,7 @@ export class RulesService {
       'Content-Type': 'application/json'
     });
 
-    return this.httpClient.post<RuleResponse>(`${this.apiUrl}/api/managed_profiles/${managedProfileId}/blocking-rules/`, payload, { headers })
+    return this.httpClient.post<RuleResponse>(`${this.apiUrl}/api/managed-profiles/${managedProfileId}/blocking-rules/`, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
