@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule, DatePipe } from '@angular/common'; // Importa DatePipe
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
@@ -13,6 +13,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { NavigationHistoryService, NavigationHistoryResponse, PaginatedHistoryResponse } from '../../services/navigation-history.service';
 
@@ -30,11 +31,14 @@ import { NavigationHistoryService, NavigationHistoryResponse, PaginatedHistoryRe
     MatSortModule,
     MatInputModule,
     MatFormFieldModule,
+    MatTabsModule
   ],
   templateUrl: './profile-management.component.html',
   styleUrl: './profile-management.component.css'
 })
 export class ProfileManagementComponent implements OnInit, AfterViewInit {
+  selectedTabIndex: number = 0;
+
   profileName: string | null = '';
   profileId: string | null = '';
 
@@ -67,8 +71,8 @@ export class ProfileManagementComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     if (this.paginator) {
-        this.pageSize = this.paginator.pageSize;
-        this.currentPageIndex = this.paginator.pageIndex;
+      this.pageSize = this.paginator.pageSize;
+      this.currentPageIndex = this.paginator.pageIndex;
     }
     this.loadNavigationData();
   }
@@ -86,7 +90,7 @@ export class ProfileManagementComponent implements OnInit, AfterViewInit {
 
     this.navigationHistoryService.getNavigationHistory(Number(this.profileId), page, pageSize)
       .subscribe({
-        next: (response: PaginatedHistoryResponse) => { 
+        next: (response: PaginatedHistoryResponse) => {
           if (response && typeof response.total_items === 'number' && Array.isArray(response.items)) {
             this.dataSource.data = response.items;
             this.totalEntities = response.total_items;
