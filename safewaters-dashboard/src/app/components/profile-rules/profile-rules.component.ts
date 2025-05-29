@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { RulesService, RuleResponse } from '../../services/rules.service';
+import { RulesService, RuleResponse, RuleEditRequest } from '../../services/rules.service';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
@@ -110,4 +110,28 @@ export class ProfileRulesComponent implements OnInit {
       }
     });
   }
+
+
+  toggleRuleStatus(rule: boolean, rule_id: number): void {
+    const newStatus = !rule;
+
+    const payload: RuleEditRequest = {
+      is_active: newStatus
+    };
+
+    this.rulesService.editRuleByManagedProfileId(rule_id, payload).subscribe({
+      next: (updatedRule) => {
+        const index = this.managedProfilesRules.findIndex(r => r.id === updatedRule.id);
+        if (index !== -1) {
+          this.managedProfilesRules[index] = updatedRule;
+        }
+        console.log('Estado de la regla actualizado con éxito:', updatedRule);
+      },
+      error: (error) => {
+        console.error('Error al actualizar el estado de la regla:', error);
+        this.loadProfileRules(); 
+      }
+    });
+  }
+
 }
