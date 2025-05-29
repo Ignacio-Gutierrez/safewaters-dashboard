@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProfileDialogComponent } from '../../components/profile-dialog/profile-dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -96,8 +97,13 @@ export class DashboardComponent implements OnInit {
           console.log('Profile deleted successfully');
           this.loadManagedProfiles();
         },
-        error: (err) => {
+        error: (err: HttpErrorResponse) => {
           console.error('Error deleting profile', err);
+          if (err.status === 409) {
+            alert(err.error.detail || 'No se puede eliminar el perfil porque tiene historial de navegación o reglas de bloqueo asociadas.');
+          } else {
+            alert('Ocurrió un error al intentar eliminar el perfil. Por favor, inténtelo de nuevo.');
+          }
         }
       });
     }
