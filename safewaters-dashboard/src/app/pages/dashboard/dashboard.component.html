@@ -14,7 +14,7 @@
 
     @if (!isLoading && !errorLoadingProfiles && managedProfiles.length > 0) {
     <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 justify-items-center max-w-[96rem] mx-auto">
+        class="flex flex-wrap justify-baseline gap-5 max-w-[96rem]">
         @for (profile of managedProfiles; track profile.id) {
         <mat-card appearance="outlined"
             class="min-w-[22rem] max-w-xl cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95"
