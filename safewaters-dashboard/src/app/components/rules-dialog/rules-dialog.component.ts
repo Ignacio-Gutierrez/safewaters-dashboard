@@ -1,5 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+
+} from '@angular/forms';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,8 +16,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIcon } from '@angular/material/icon';
 
 import { RulesService, RuleRequest, RuleResponse } from '../../services/rules.service';
-
-
 
 @Component({
   selector: 'app-rules-dialog',
@@ -41,10 +45,43 @@ export class RulesDialogComponent {
   ) {
     this.createRuleForm = this.fb.group({
       rule_type: ['', Validators.required],
-      rule_value: ['', Validators.required, Validators.maxLength(255)],
-      description: ['', Validators.required, Validators.maxLength(255)],
-      is_active: [true, Validators.required]
+      rule_value: ['', [Validators.required, Validators.maxLength(255), this.validateRuleValue.bind(this)]],
+      description: ['', Validators.maxLength(255)],
+      is_active: [true]
     });
+
+    this.createRuleForm.get('rule_type')?.valueChanges.subscribe(() => {
+      this.createRuleForm.get('rule_value')?.updateValueAndValidity();
+    });
+  }
+
+  validateRuleValue(control: any) {
+    const ruleType = this.createRuleForm?.get('rule_type')?.value;
+    const ruleValue = control.value;
+
+    if (!ruleType || !ruleValue) {
+      return null;
+    }
+
+    switch (ruleType) {
+      case 'URL_EXACTA':
+        // Validar URL completa
+        const urlPattern = /^https?:\/\/.+/;
+        return urlPattern.test(ruleValue) ? null : { invalidUrl: true };
+
+      case 'DOMINIO':
+        // Validar formato de dominio
+        const domainPattern = /^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$/;
+        return domainPattern.test(ruleValue) ? null : { invalidDomain: true };
+
+      case 'PALABRA_CLAVE_URL':
+        // Validar que no esté vacío y no contenga caracteres especiales de URL
+        const keywordPattern = /^[a-zA-Z0-9\-_]+$/;
+        return keywordPattern.test(ruleValue) ? null : { invalidKeyword: true };
+
+      default:
+        return null;
+    }
   }
 
   onCancel(): void {

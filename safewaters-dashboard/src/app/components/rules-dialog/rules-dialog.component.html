@@ -10,19 +10,31 @@
         </mat-button-toggle-group>
     </div>
 
-    <mat-form-field appearance="fill" class="w-full">
+    <mat-form-field appearance="fill" class="w-full mb-3">
         <mat-label>
             {{ createRuleForm.get('rule_type')?.value === 'URL_EXACTA' ? 'URL exacta a bloquear' :
             createRuleForm.get('rule_type')?.value === 'DOMINIO' ? 'Dominio a bloquear' :
             createRuleForm.get('rule_type')?.value === 'PALABRA_CLAVE_URL' ? 'Palabra clave en URL a bloquear' :
             'Valor a bloquear' }}
         </mat-label>
-        <input matInput formControlName="rule_value" cdkFocusInitial>
+        <input matInput formControlName="rule_value">
+        @if (createRuleForm.get('rule_value')?.hasError('required')) {
+            <mat-error>Este campo es requerido</mat-error>
+        } @else if (createRuleForm.get('rule_value')?.hasError('maxlength')) {
+            <mat-error>El valor no puede exceder los 255 caracteres</mat-error>
+        } @else if (createRuleForm.get('rule_value')?.hasError('validateRuleValue')) {
+            <mat-error>Formato inválido</mat-error>
+        }
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="w-full">
+    <mat-form-field appearance="fill" class="w-full mb-3">
         <mat-label>Descripción</mat-label>
-        <input matInput formControlName="description" cdkFocusInitial>
+        <input matInput formControlName="description">
+        @if (createRuleForm.get('description')?.hasError('required')) {
+            <mat-error>Este campo es requerido</mat-error>
+        } @else if (createRuleForm.get('description')?.hasError('maxlength')) {
+            <mat-error>El valor no puede exceder los 255 caracteres</mat-error>
+        }
     </mat-form-field>
 
     <mat-slide-toggle formControlName="is_active" class="w-full flex justify-center">
@@ -32,7 +44,6 @@
             <mat-icon class="text-red-800 font-medium">lock_open</mat-icon>
         }
     </mat-slide-toggle>
-
 
 </mat-dialog-content>
 
