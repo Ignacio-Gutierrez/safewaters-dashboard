@@ -82,7 +82,7 @@ export class ProfileRulesComponent implements OnInit {
 
   deleteProfileRule(ruleId: number): void {
     if (confirm('¿Estás seguro de que quieres eliminar esta regla?')) {
-      this.rulesService.deleteRule(ruleId).subscribe({
+      this.rulesService.deleteRuleByManagedProfileId(ruleId).subscribe({
         next: () => {
           console.log('Rule deleted successfully');
           this.loadProfileRules();

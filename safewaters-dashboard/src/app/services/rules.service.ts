@@ -28,7 +28,7 @@ export class RulesService {
       );
   }
 
-  deleteRule(ruleId: number): Observable<any> {
+  deleteRuleByManagedProfileId(ruleId: number): Observable<any> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -40,7 +40,7 @@ export class RulesService {
       );
   }
 
-  createRule(managedProfileId: number, payload: RuleRequest): Observable<RuleResponse> {
+  createRuleByManagedProfileId(managedProfileId: number, payload: RuleRequest): Observable<RuleResponse> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -54,8 +54,7 @@ export class RulesService {
       );
   }
 
-
-  editRule(ruleId: number, payload: RuleRequest): Observable<RuleResponse> {
+  editRuleByManagedProfileId(ruleId: number, payload: RuleEditRequest): Observable<RuleResponse> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -68,6 +67,7 @@ export class RulesService {
         catchError(this.handleError)
       );
   }
+  
   private handleError(error: HttpErrorResponse): Observable<never> {
     let logMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {
@@ -104,5 +104,9 @@ export interface RuleRequest {
   rule_type: 'URL_EXACTA' | 'DOMINIO' | 'PALABRA_CLAVE_URL';
   rule_value: string;
   description: string;
+  is_active: boolean;
+}
+
+export interface RuleEditRequest {
   is_active: boolean;
 }

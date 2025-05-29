@@ -102,7 +102,7 @@ export class RulesDialogComponent {
       is_active: this.createRuleForm.value.is_active
     };
 
-    this.rulesService.createRule(this.data.managedProfileId, payload).subscribe({
+    this.rulesService.createRuleByManagedProfileId(this.data.managedProfileId, payload).subscribe({
       next: (response: RuleResponse) => {
         console.log('Rule created successfully:', response);
         this.isSaving = false;
