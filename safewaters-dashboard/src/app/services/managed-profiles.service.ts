@@ -98,13 +98,9 @@ export interface ManagedProfileResponse {
   created_at: string;
   link_code: string;
   extension_instance_id: string | null;
+  blocking_rules_count: number;
 }
 
 export interface ManagedProfileRequest {
   profile_name: string;
-  // link_status y last_extension_communication son opcionales aquí
-  // si el backend los maneja por defecto o los establece.
-  // Si necesitas enviarlos explícitamente desde el frontend, añádelos.
-  // link_status?: string; 
-  // last_extension_communication?: string; // O Date, dependiendo de cómo lo manejes
 }
