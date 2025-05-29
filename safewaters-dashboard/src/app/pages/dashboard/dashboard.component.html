@@ -13,11 +13,10 @@
     </div>
 
     @if (!isLoading && !errorLoadingProfiles && managedProfiles.length > 0) {
-    <div
-        class="flex flex-wrap justify-baseline gap-5 max-w-[96rem]">
+    <div class="flex flex-wrap justify-self-center gap-5 max-w-[96rem]">
         @for (profile of managedProfiles; track profile.id) {
         <mat-card appearance="outlined"
-            class="min-w-[22rem] max-w-xl cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95"
+            class="min-w-[22rem] max-w-xl cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95 border-gray-400"
             (click)="viewProfileDetails(profile.id, profile.profile_name)">
             <mat-card-header>
                 <mat-card-title-group class="flex flex-col pb-2">
@@ -41,21 +40,22 @@
 
             <mat-divider class="border-gray-400"></mat-divider>
 
-            <mat-card-content class="pt-2 pb-2">
-                <p class="flex items-center mt-1">
-                    <mat-icon class="mr-1">schedule</mat-icon>
-                    <span class="font-medium">Última comunicación:&nbsp;</span>
-                    {{ profile.last_extension_communication | date:'short' }}
-                </p>
-                <p class="flex items-center mt-1">
-                    <mat-icon class="mr-1">qr_code</mat-icon>
-                    <span class="font-medium">Código de enlace:&nbsp;</span>
-                    {{ profile.link_code }}
-                </p>
-                <p class="flex items-center mt-1 mb-1">
-                    <mat-icon class="mr-1">gavel</mat-icon>
-                    <span class="font-medium">Reglas activas:&nbsp;</span>
-                    metele algo aca
+            <mat-card-content class="space-y-3 pt-4 pb-4">
+                <div class="flex items-center">
+                    <mat-icon class="mr-2 text-gray-600">schedule</mat-icon>
+                    <span class="font-semibold text-gray-800">Última comunicación:</span>
+                    <span class="ml-1 text-gray-700">{{ profile.last_extension_communication | date:'short' }}</span>
+                </div>
+                <div class="flex items-center mt-1">
+                    <mat-icon class="mr-2 text-gray-600">qr_code</mat-icon>
+                    <span class="font-semibold text-gray-800">Código de enlace:</span>
+                    <span class="ml-1 text-gray-700">{{ profile.link_code }}</span>
+                </div>
+                <div class="flex items-center mt-1 mb-1">
+                    <mat-icon class="mr-2 text-gray-600">gavel</mat-icon>
+                    <span class="font-semibold text-gray-800">Reglas activas:</span>
+                    <span class="ml-1 text-gray-700">eso</span>
+                </div>
             </mat-card-content>
 
             <mat-divider class="border-gray-400"></mat-divider>
