@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Crear Nueva Regla</h2>
+
+<mat-dialog-content [formGroup]="createRuleForm">
+
+    <div class="w-full flex justify-center mb-4">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="rule_type" required>
+            <mat-button-toggle value="URL_EXACTA">Url</mat-button-toggle>
+            <mat-button-toggle value="DOMINIO">Dominio</mat-button-toggle>
+            <mat-button-toggle value="PALABRA_CLAVE_URL">Palabra</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+
+    <mat-form-field appearance="fill" class="w-full">
+        <mat-label>
+            {{ createRuleForm.get('rule_type')?.value === 'URL_EXACTA' ? 'URL exacta a bloquear' :
+            createRuleForm.get('rule_type')?.value === 'DOMINIO' ? 'Dominio a bloquear' :
+            createRuleForm.get('rule_type')?.value === 'PALABRA_CLAVE_URL' ? 'Palabra clave en URL a bloquear' :
+            'Valor a bloquear' }}
+        </mat-label>
+        <input matInput formControlName="rule_value" cdkFocusInitial>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName="description" cdkFocusInitial>
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="is_active" class="w-full flex justify-center">
+        @if (createRuleForm.get('is_active')?.value) {
+            <mat-icon class="text-green-800 font-medium">lock</mat-icon>
+        } @else {
+            <mat-icon class="text-red-800 font-medium">lock_open</mat-icon>
+        }
+    </mat-slide-toggle>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-stroked-button (click)="onCancel()">Cancelar</button>
+    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="createRuleForm.invalid || isSaving">
+        @if (isSaving) {
+        <span>Guardando...</span>
+        } @else {
+        <span>Guardar</span>
+        }
+    </button>
+</mat-dialog-actions>
