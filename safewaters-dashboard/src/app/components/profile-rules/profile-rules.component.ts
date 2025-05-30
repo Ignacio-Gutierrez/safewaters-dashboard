@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { RulesService, RuleResponse, RuleEditRequest } from '../../services/rules.service';
 import { CommonModule } from '@angular/common';
@@ -87,9 +88,13 @@ export class ProfileRulesComponent implements OnInit {
           console.log('Rule deleted successfully');
           this.loadProfileRules();
         },
-        error: (err) => {
+        error: (err: HttpErrorResponse) => {
           console.error('Error deleting rule', err);
-          alert('Error al eliminar la regla.' + err.message);
+          if (err.status === 409) {
+            alert(err.error?.detail || 'No se puede eliminar la regla porque está asociada a entradas del historial de navegación.');
+          } else {
+            alert('Ocurrió un error al intentar eliminar la regla. Por favor, inténtelo de nuevo.');
+          }
         }
       });
     }
