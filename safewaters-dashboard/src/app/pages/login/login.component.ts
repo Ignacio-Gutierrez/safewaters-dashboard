@@ -35,7 +35,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent {
   loginForm = signal(
     new FormGroup({
-      usernameOrEmail: new FormControl('user@example.com', { nonNullable: true, validators: [Validators.required] }),
+      usernameOrEmail: new FormControl('user12@example.com', { nonNullable: true, validators: [Validators.required] }),
       password: new FormControl('aStrongPassword123!', { nonNullable: true, validators: [Validators.required] })
     })
   );
