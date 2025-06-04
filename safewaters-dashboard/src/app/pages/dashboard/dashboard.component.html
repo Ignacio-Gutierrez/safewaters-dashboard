@@ -49,7 +49,7 @@
             <mat-divider class="border-gray-400"></mat-divider>
 
             <mat-card-actions class="flex justify-around">
-                <button mat-stroked-button (click)="copyToken(profile.token); $event.stopPropagation()">
+                <button mat-flat-button (click)="copyToken(profile.token); $event.stopPropagation()">
                     Copiar Token
                     <mat-icon class="ml-1">content_copy</mat-icon>
                 </button>
