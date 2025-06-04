@@ -14,14 +14,14 @@ export class NavigationHistoryService {
     private router: Router
   ) { }
 
-  getNavigationHistory(managedProfileId: number, page: number = 1, pageSize: number = 10): Observable<PaginatedHistoryResponse> {
+  getNavigationHistory(managedProfileId: string, page: number = 1, pageSize: number = 10, blocked: boolean): Observable<PaginatedHistoryResponse> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'accept': 'application/json'
     });
 
-    const requestUrl = `${this.apiUrl}/api/navigation_history/${managedProfileId}/history?page=${page}&page_size=${pageSize}`;
+    const requestUrl = `${this.apiUrl}/api/navigation-history/profile/${managedProfileId}?page=${page}&page_size=${pageSize}&blocked_only=${blocked}`;
     
     return this.httpClient.get<PaginatedHistoryResponse>(requestUrl, { headers })
       .pipe(
@@ -50,12 +50,12 @@ export class NavigationHistoryService {
 }
 
 export interface NavigationHistoryResponse {
-  id: number;
+  id: string;
   visited_url: string;
-  was_blocked: boolean;
+  blocked: boolean;
   manaded_profile_id: string;
-  visited_date: string;
-  blocking_rule_id: number;
+  visited_at: string;
+  blocking_rule_id: string;
 }
 
 export interface PaginatedHistoryResponse {
