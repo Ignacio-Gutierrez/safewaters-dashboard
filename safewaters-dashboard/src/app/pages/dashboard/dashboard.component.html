@@ -14,26 +14,15 @@
 
     @if (!isLoading && !errorLoadingProfiles && managedProfiles.length > 0) {
     <div class="flex flex-wrap justify-self-center gap-5 max-w-[96rem]">
-        @for (profile of managedProfiles; track profile.id) {
+        @for (profile of managedProfiles; track profile._id) {
         <mat-card appearance="outlined"
             class="min-w-[22rem] max-w-xl cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95 border-gray-400"
-            (click)="viewProfileDetails(profile.id, profile.profile_name)">
+            (click)="viewProfileDetails(profile._id, profile.name)">
             <mat-card-header>
                 <mat-card-title-group class="flex flex-col pb-2">
                     <div class="flex items-center">
                         <mat-icon>admin_panel_settings</mat-icon>
-                        <mat-card-title class="font-medium self-start ml-1">{{ profile.profile_name }}</mat-card-title>
-                    </div>
-                    <div>
-                        <mat-card-subtitle class="text-center text-sky-950">
-                            @if (profile.link_status === 'waiting_for_link') {
-                            Sin enlazar
-                            <mat-icon class="text-yellow-500 align-middle">link_off</mat-icon>
-                            } @else {
-                            Enlazado
-                            <mat-icon class="text-green-500 align-middle">check_circle</mat-icon>
-                            }
-                        </mat-card-subtitle>
+                        <mat-card-title class="font-medium self-start ml-1">{{ profile.name }}</mat-card-title>
                     </div>
                 </mat-card-title-group>
             </mat-card-header>
@@ -41,16 +30,15 @@
             <mat-divider class="border-gray-400"></mat-divider>
 
             <mat-card-content class="space-y-3 pt-4 pb-4">
-                <div class="flex items-center">
-                    <mat-icon class="mr-2 text-gray-600">schedule</mat-icon>
-                    <span class="font-semibold text-gray-800">Última comunicación:</span>
-                    <span class="ml-1 text-gray-700">{{ profile.last_extension_communication | date:'short' }}</span>
-                </div>
                 <div class="flex items-center mt-1">
                     <mat-icon class="mr-2 text-gray-600">qr_code</mat-icon>
                     <span class="font-semibold text-gray-800">Código de enlace:</span>
-                    <span class="ml-1 text-gray-700">{{ profile.link_code }}</span>
                 </div>
+                <div class="mb-6">
+                    <span class="ml-1 text-gray-700">{{ profile.token }}</span>
+                </div>
+
+
                 <div class="flex items-center mt-1 mb-1">
                     <mat-icon class="mr-2 text-gray-600">gavel</mat-icon>
                     <span class="font-semibold text-gray-800">Reglas activas:</span>
@@ -61,9 +49,11 @@
             <mat-divider class="border-gray-400"></mat-divider>
 
             <mat-card-actions class="flex justify-around">
-                <button mat-flat-button (click)="editProfile(profile.id); $event.stopPropagation()">
-                    Editar Nombre</button>
-                <button mat-stroked-button (click)="deleteProfile(profile.id); $event.stopPropagation()">
+                <button mat-stroked-button (click)="copyToken(profile.token); $event.stopPropagation()">
+                    Copiar Token
+                    <mat-icon class="ml-1">content_copy</mat-icon>
+                </button>
+                <button mat-stroked-button (click)="deleteProfile(profile._id); $event.stopPropagation()">
                     Eliminar</button>
             </mat-card-actions>
         </mat-card>

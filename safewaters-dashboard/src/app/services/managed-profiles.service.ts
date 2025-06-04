@@ -27,7 +27,7 @@ export class ManagedProfilesService {
       );
   }
 
-  deleteManagedProfile(id: number): Observable<any> {
+  deleteManagedProfile(id: string): Observable<any> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -54,7 +54,7 @@ export class ManagedProfilesService {
       );
   }
 
-  editManagedProfile(id: number, payload: ManagedProfileRequest): Observable<ManagedProfileResponse> {
+  editManagedProfile(id: string, payload: ManagedProfileRequest): Observable<ManagedProfileResponse> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -90,17 +90,14 @@ export class ManagedProfilesService {
 
 
 export interface ManagedProfileResponse {
-  profile_name: string;
-  link_status: string;
-  last_extension_communication: string;
-  id: number;
-  manager_user_id: number;
+  name: string;
+  _id: string;
+  token: string;
   created_at: string;
-  link_code: string;
-  extension_instance_id: string | null;
+  manager_user_id: string;
   blocking_rules_count: number;
 }
 
 export interface ManagedProfileRequest {
-  profile_name: string;
+  name: string;
 }

@@ -67,30 +67,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-
-  editProfile(profileId: number): void {
-    const profileToEdit = this.managedProfiles.find(p => p.id === profileId);
-    if (!profileToEdit) {
-      console.error('Profile not found for editing');
-      return;
-    }
-
-    const dialogRef = this.dialog.open(ProfileDialogComponent, {
-      width: '450px',
-      disableClose: true,
-      data: { isEditMode: true, profile: profileToEdit }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
-        console.log('Profile updated:', result);
-        this.loadManagedProfiles();
-      }
-    });
-  }
-
-  deleteProfile(id: number): void {
+  deleteProfile(id: string): void {
     if (confirm('¿Está seguro de que desea eliminar este perfil?')) {
       this.managedProfilesService.deleteManagedProfile(id).subscribe({
         next: () => {
@@ -109,7 +86,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  viewProfileDetails(id: number, profile_name: string): void {
+  viewProfileDetails(id: string, profile_name: string): void {
     console.log('Attempting to view profile with id:', id);
     this.router.navigate(['/profile', id, profile_name]);
   }
@@ -127,5 +104,30 @@ export class DashboardComponent implements OnInit {
         this.loadManagedProfiles();
       }
     });
+  }
+
+
+  copyToken(token: string): void {
+    navigator.clipboard.writeText(token).then(() => {
+      console.log('Token copied to clipboard');
+    }).catch(err => {
+      console.error('Error copying token:', err);
+      this.fallbackCopyToken(token);
+    });
+  }
+
+  private fallbackCopyToken(token: string): void {
+    const textArea = document.createElement('textarea');
+    textArea.value = token;
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      console.error('Fallback copy failed:', err);
+    }
+    
+    document.body.removeChild(textArea);
   }
 }

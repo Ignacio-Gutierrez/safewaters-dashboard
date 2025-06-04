@@ -38,7 +38,7 @@ export class ProfileDialogComponent {
 
     this.createProfileForm = this.fb.group({
       profileName: [
-        this.isEditMode && data.profile ? data.profile.profile_name : '',
+        this.isEditMode && data.profile ? data.profile.name : '',
         [Validators.required, Validators.minLength(3), Validators.maxLength(100)]
       ]
     });
@@ -56,11 +56,11 @@ export class ProfileDialogComponent {
 
     this.isSaving = true;
     const payload: ManagedProfileRequest = {
-      profile_name: this.createProfileForm.value.profileName
+      name: this.createProfileForm.value.profileName
     };
 
     if (this.isEditMode && this.data.profile) {
-      this.managedProfilesService.editManagedProfile(this.data.profile.id, payload).subscribe({
+      this.managedProfilesService.editManagedProfile(this.data.profile._id, payload).subscribe({
         next: (updatedProfile) => {
           this.isSaving = false;
           this.dialogRef.close(updatedProfile);
