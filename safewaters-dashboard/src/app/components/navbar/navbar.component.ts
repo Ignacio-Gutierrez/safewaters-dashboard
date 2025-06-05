@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -21,13 +21,20 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   logout() {
     this.authService.logout();
   }
 
   goToDashboard() {
-    window.location.href = '/dashboard';
+    this.router.navigate(['/dashboard']);
+  }
+
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
   }
 }

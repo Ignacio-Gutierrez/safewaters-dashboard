@@ -45,6 +45,34 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('access_token');
+    
+    if (!token) {
+      return false;
+    }
+    
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const currentTime = Math.floor(Date.now() / 1000);
+    
+      if (payload.exp <= currentTime) {
+        this.logout();
+        return false;
+      }
+      
+      return true;
+    } catch (error) {
+      console.error('Error verificando el token:', error);
+      this.logout(); 
+      return false;
+    }
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
 
     let logMessage = 'An unknown error occurred!';
