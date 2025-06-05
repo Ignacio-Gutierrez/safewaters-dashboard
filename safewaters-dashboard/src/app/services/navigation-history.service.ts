@@ -55,7 +55,9 @@ export interface NavigationHistoryResponse {
   blocked: boolean;
   manaded_profile_id: string;
   visited_at: string;
-  blocking_rule_id: string;
+  blocking_rule_id: string | null;
+  blocking_rule_name: string | null;
+  blocking_rule_description: string | null;
 }
 
 export interface PaginatedHistoryResponse {
@@ -65,3 +67,6 @@ export interface PaginatedHistoryResponse {
   page_size: number;
   items: NavigationHistoryResponse[];
 }
+
+
+

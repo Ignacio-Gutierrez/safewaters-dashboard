@@ -21,10 +21,10 @@
                 <td mat-cell *matCellDef="let row"> {{row.blocked ? 'Sí' : 'No'}} </td>
             </ng-container>
 
-            <!-- Blocking Rule ID Column -->
-            <ng-container matColumnDef="blocking_rule_id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Regla Bloqueo </th>
-                <td mat-cell *matCellDef="let row"> {{row.blocking_rule_id || 'N/A'}} </td>
+            <!-- Blocking Rule Name Column -->
+            <ng-container matColumnDef="blocking_rule_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Regla de Bloqueo </th>
+                <td mat-cell *matCellDef="let row"> {{row.blocking_rule_name || 'N/A'}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>

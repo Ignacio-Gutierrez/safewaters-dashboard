@@ -40,7 +40,7 @@ export class ProfileHistoryComponent implements OnInit, AfterViewInit {
   profileName: string | null = '';
   profileId: string | null = '';
 
-  columnsToDisplay: string[] = ['visited_url', 'visited_at', 'blocked', 'blocking_rule_id'];
+  columnsToDisplay: string[] = ['visited_url', 'visited_at', 'blocked', 'blocking_rule_name'];
   dataSource = new MatTableDataSource<NavigationHistoryResponse>();
 
   totalEntities = 0;
