@@ -32,7 +32,7 @@ export class ProfileRulesComponent implements OnInit {
   managedProfilesRules: RuleResponse[] = [];
   isLoading: boolean = true;
   errorLoadingRules: boolean = false;
-  managedProfileId: number = NaN;
+  managedProfileId: string = '';
 
   constructor(
     private router: Router,
@@ -54,9 +54,9 @@ export class ProfileRulesComponent implements OnInit {
 
     if (profileKeywordIndex !== -1 && pathSegments.length > profileKeywordIndex + 1) {
       const idString = pathSegments[profileKeywordIndex + 1];
-      this.managedProfileId = Number(idString);
+      this.managedProfileId = String(idString);
     }
-    if (isNaN(this.managedProfileId)) {
+    if (!this.managedProfileId) {
       console.error('Invalid or missing profile ID in URL:', this.router.url);
       this.errorLoadingRules = true;
       this.isLoading = false;
@@ -81,7 +81,7 @@ export class ProfileRulesComponent implements OnInit {
     });
   }
 
-  deleteProfileRule(ruleId: number): void {
+  deleteProfileRule(ruleId: string): void {
     if (confirm('¿Estás seguro de que quieres eliminar esta regla?')) {
       this.rulesService.deleteRuleByManagedProfileId(ruleId).subscribe({
         next: () => {
@@ -117,11 +117,11 @@ export class ProfileRulesComponent implements OnInit {
   }
 
 
-  toggleRuleStatus(rule: boolean, rule_id: number): void {
+  toggleRuleStatus(rule: boolean, rule_id: string): void {
     const newStatus = !rule;
 
     const payload: RuleEditRequest = {
-      is_active: newStatus
+      active: newStatus
     };
 
     this.rulesService.editRuleByManagedProfileId(rule_id, payload).subscribe({

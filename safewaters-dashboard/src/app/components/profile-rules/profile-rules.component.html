@@ -36,13 +36,13 @@
                 </div>
 
                 <div class="flex items-center cursor-pointer pt-2 pb-2 hover:bg-gray-200 rounded"
-                    (click)="toggleRuleStatus(rule.is_active , rule.id); $event.stopPropagation()"
-                    [title]="rule.is_active ? 'Haz clic para desactivar' : 'Haz clic para activar'"
+                    (click)="toggleRuleStatus(rule.active , rule.id); $event.stopPropagation()"
+                    [title]="rule.active ? 'Haz clic para desactivar' : 'Haz clic para activar'"
                 >
-                    <mat-icon class="mr-2" [class]="rule.is_active ? 'text-green-600' : 'text-red-600'">toggle_{{ rule.is_active ? 'on' : 'off' }}</mat-icon>
+                    <mat-icon class="mr-2" [class]="rule.active ? 'text-green-600' : 'text-red-600'">toggle_{{ rule.active ? 'on' : 'off' }}</mat-icon>
                     <span class="font-semibold text-gray-800">Estado:</span>
-                    <span class="ml-1" [class]="rule.is_active ? 'text-green-600' : 'text-red-600'">
-                        {{ rule.is_active ? 'Activa' : 'Inactiva' }}
+                    <span class="ml-1" [class]="rule.active ? 'text-green-600' : 'text-red-600'">
+                        {{ rule.active ? 'Activa' : 'Inactiva' }}
                     </span>
                 </div>
 
