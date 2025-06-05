@@ -103,7 +103,7 @@ export class ProfileRulesComponent implements OnInit {
   createRule(): void {
     const dialogRef = this.dialog.open(RulesDialogComponent, {
       width: '450px',
-      height: '420px',
+      height: '500px',
       disableClose: true,
       data: { managedProfileId: this.managedProfileId }
     });

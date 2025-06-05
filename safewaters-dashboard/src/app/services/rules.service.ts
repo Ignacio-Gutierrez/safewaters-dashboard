@@ -97,6 +97,7 @@ export interface RuleResponse {
   active: boolean;
   id: string;
   created_at: string;
+  name: string;
 }
 
 export interface RuleRequest {
@@ -104,6 +105,7 @@ export interface RuleRequest {
   rule_value: string;
   description: string;
   active: boolean;
+  name: string;
 }
 
 export interface RuleEditRequest {
