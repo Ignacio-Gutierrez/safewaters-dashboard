@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatDialog } from '@angular/material/dialog';
 
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -15,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { NavigationHistoryService, NavigationHistoryResponse, PaginatedHistoryResponse } from '../../services/navigation-history.service';
+import { RuleDetailsDialogComponent } from '../rule-details-dialog/rule-details-dialog.component';
 
 @Component({
   selector: 'app-profile-history',
@@ -40,7 +42,7 @@ export class ProfileHistoryComponent implements OnInit, AfterViewInit {
   profileName: string | null = '';
   profileId: string | null = '';
 
-  columnsToDisplay: string[] = ['visited_url', 'visited_at', 'blocked', 'blocking_rule_name'];
+  columnsToDisplay: string[] = ['visited_url', 'visited_at', 'blocked', 'blocking_rule_name', 'rule_details'];
   dataSource = new MatTableDataSource<NavigationHistoryResponse>();
 
   totalEntities = 0;
@@ -52,7 +54,8 @@ export class ProfileHistoryComponent implements OnInit, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private navigationHistoryService: NavigationHistoryService
+    private navigationHistoryService: NavigationHistoryService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -113,5 +116,23 @@ export class ProfileHistoryComponent implements OnInit, AfterViewInit {
 
   createRule() {
     console.log('Creating a new rule for profile ID:', this.profileId);
+  }
+
+  viewRuleDetails(row: NavigationHistoryResponse): void {
+    if (!row.blocking_rule_id || !row.blocking_rule_name) {
+      console.warn('No hay información de regla de bloqueo disponible para esta entrada');
+      return;
+    }
+
+    this.dialog.open(RuleDetailsDialogComponent, {
+      width: '600px',
+      data: {
+        blocking_rule_enabled: row.blocked,
+        blocking_rule_name: row.blocking_rule_name,
+        blocking_rule_description: row.blocking_rule_description,
+        visited_url: row.visited_url,
+        visited_at: row.visited_at
+      }
+    });
   }
 }
