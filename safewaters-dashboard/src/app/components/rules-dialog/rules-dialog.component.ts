@@ -41,13 +41,13 @@ export class RulesDialogComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<RulesDialogComponent>,
     private rulesService: RulesService,
-    @Inject(MAT_DIALOG_DATA) public data: { managedProfileId: number }
+    @Inject(MAT_DIALOG_DATA) public data: { managedProfileId: string }
   ) {
     this.createRuleForm = this.fb.group({
       rule_type: ['', Validators.required],
       rule_value: ['', [Validators.required, Validators.maxLength(255), this.validateRuleValue.bind(this)]],
       description: ['', Validators.maxLength(255)],
-      is_active: [true]
+      active: [true]
     });
 
     this.createRuleForm.get('rule_type')?.valueChanges.subscribe(() => {
@@ -64,17 +64,17 @@ export class RulesDialogComponent {
     }
 
     switch (ruleType) {
-      case 'URL_EXACTA':
+      case 'URL':
         // Validar URL completa
         const urlPattern = /^https?:\/\/.+/;
         return urlPattern.test(ruleValue) ? null : { invalidUrl: true };
 
-      case 'DOMINIO':
+      case 'DOMAIN':
         // Validar formato de dominio
         const domainPattern = /^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$/;
         return domainPattern.test(ruleValue) ? null : { invalidDomain: true };
 
-      case 'PALABRA_CLAVE_URL':
+      case 'KEYWORD':
         // Validar que no esté vacío y no contenga caracteres especiales de URL
         const keywordPattern = /^[a-zA-Z0-9\-_]+$/;
         return keywordPattern.test(ruleValue) ? null : { invalidKeyword: true };
@@ -99,7 +99,7 @@ export class RulesDialogComponent {
       rule_type: this.createRuleForm.value.rule_type,
       rule_value: this.createRuleForm.value.rule_value,
       description: this.createRuleForm.value.description,
-      is_active: this.createRuleForm.value.is_active
+      active: this.createRuleForm.value.active
     };
 
     this.rulesService.createRuleByManagedProfileId(this.data.managedProfileId, payload).subscribe({

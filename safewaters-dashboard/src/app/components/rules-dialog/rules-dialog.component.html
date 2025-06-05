@@ -4,17 +4,17 @@
 
     <div class="w-full flex justify-center mb-4">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="rule_type" required>
-            <mat-button-toggle value="URL_EXACTA">Url</mat-button-toggle>
-            <mat-button-toggle value="DOMINIO">Dominio</mat-button-toggle>
-            <mat-button-toggle value="PALABRA_CLAVE_URL">Palabra</mat-button-toggle>
+            <mat-button-toggle value="URL">Url</mat-button-toggle>
+            <mat-button-toggle value="DOMAIN">Dominio</mat-button-toggle>
+            <mat-button-toggle value="KEYWORD">Palabra</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
 
     <mat-form-field appearance="fill" class="w-full mb-3">
         <mat-label>
-            {{ createRuleForm.get('rule_type')?.value === 'URL_EXACTA' ? 'URL exacta a bloquear' :
-            createRuleForm.get('rule_type')?.value === 'DOMINIO' ? 'Dominio a bloquear' :
-            createRuleForm.get('rule_type')?.value === 'PALABRA_CLAVE_URL' ? 'Palabra clave en URL a bloquear' :
+            {{ createRuleForm.get('rule_type')?.value === 'URL' ? 'URL exacta a bloquear' :
+            createRuleForm.get('rule_type')?.value === 'DOMAIN' ? 'Dominio a bloquear' :
+            createRuleForm.get('rule_type')?.value === 'KEYWORD' ? 'Palabra clave en URL a bloquear' :
             'Valor a bloquear' }}
         </mat-label>
         <input matInput formControlName="rule_value">
@@ -37,8 +37,8 @@
         }
     </mat-form-field>
 
-    <mat-slide-toggle formControlName="is_active" class="w-full flex justify-center">
-        @if (createRuleForm.get('is_active')?.value) {
+    <mat-slide-toggle formControlName="active" class="w-full flex justify-center">
+        @if (createRuleForm.get('active')?.value) {
             <mat-icon class="text-green-800 font-medium">lock</mat-icon>
         } @else {
             <mat-icon class="text-red-800 font-medium">lock_open</mat-icon>
