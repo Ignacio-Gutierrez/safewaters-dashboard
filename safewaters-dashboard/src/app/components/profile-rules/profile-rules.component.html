@@ -13,10 +13,10 @@
         <mat-card appearance="outlined"
             class="min-w-[22rem] w-[24rem] max-w-[24rem] shadow-sm rounded-xl border border-gray-400 flex flex-col">
 
-            <mat-card-header class="flex items-center justify-between p-4">
+            <mat-card-header class="flex items-center p-2">
                 <div class="flex items-center">
-                    <mat-icon class="mr-2 text-gray-600">rule</mat-icon>
-                    <span class="font-semibold text-gray-800">{{ rule.name}}</span>
+                    <mat-icon class="mr-4 text-gray-600">rule</mat-icon>
+                    <span class="font-semibold text-gray-800 text-xl">{{ rule.name }}</span>
                 </div>
             </mat-card-header>
 
@@ -47,9 +47,9 @@
 
                 <div class="flex items-center cursor-pointer pt-2 pb-2 hover:bg-gray-200 rounded"
                     (click)="toggleRuleStatus(rule.active , rule.id); $event.stopPropagation()"
-                    [title]="rule.active ? 'Haz clic para desactivar' : 'Haz clic para activar'"
-                >
-                    <mat-icon class="mr-2" [class]="rule.active ? 'text-green-600' : 'text-red-600'">toggle_{{ rule.active ? 'on' : 'off' }}</mat-icon>
+                    [title]="rule.active ? 'Haz clic para desactivar' : 'Haz clic para activar'">
+                    <mat-icon class="mr-2" [class]="rule.active ? 'text-green-600' : 'text-red-600'">toggle_{{
+                        rule.active ? 'on' : 'off' }}</mat-icon>
                     <span class="font-semibold text-gray-800">Estado:</span>
                     <span class="ml-1" [class]="rule.active ? 'text-green-600' : 'text-red-600'">
                         {{ rule.active ? 'Activa' : 'Inactiva' }}
