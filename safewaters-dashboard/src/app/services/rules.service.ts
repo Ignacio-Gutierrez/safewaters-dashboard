@@ -15,32 +15,32 @@ export class RulesService {
     private router: Router
   ) { }
 
-  getRulesByManagedProfileId(managedProfileId: number): Observable<RuleResponse[]> {
+  getRulesByManagedProfileId(managedProfileId: string): Observable<RuleResponse[]> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'accept': 'application/json'
     });
 
-    return this.httpClient.get<RuleResponse[]>(`${this.apiUrl}/api/managed-profiles/${managedProfileId}/blocking-rules/`, { headers })
+    return this.httpClient.get<RuleResponse[]>(`${this.apiUrl}/api/rules/profile/${managedProfileId}`, { headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  deleteRuleByManagedProfileId(ruleId: number): Observable<any> {
+  deleteRuleByManagedProfileId(ruleId: string): Observable<any> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'accept': 'application/json'
     });
-    return this.httpClient.delete(`${this.apiUrl}/api/blocking-rules/${ruleId}`, { headers })
+    return this.httpClient.delete(`${this.apiUrl}/api/rules/${ruleId}`, { headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  createRuleByManagedProfileId(managedProfileId: number, payload: RuleRequest): Observable<RuleResponse> {
+  createRuleByManagedProfileId(managedProfileId: string, payload: RuleRequest): Observable<RuleResponse> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -48,13 +48,13 @@ export class RulesService {
       'Content-Type': 'application/json'
     });
 
-    return this.httpClient.post<RuleResponse>(`${this.apiUrl}/api/managed-profiles/${managedProfileId}/blocking-rules/`, payload, { headers })
+    return this.httpClient.post<RuleResponse>(`${this.apiUrl}/api/rules/profile/${managedProfileId}`, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  editRuleByManagedProfileId(ruleId: number, payload: RuleEditRequest): Observable<RuleResponse> {
+  editRuleByManagedProfileId(ruleId: string, payload: RuleEditRequest): Observable<RuleResponse> {
     const token = localStorage.getItem('access_token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -62,7 +62,7 @@ export class RulesService {
       'Content-Type': 'application/json'
     });
 
-    return this.httpClient.put<RuleResponse>(`${this.apiUrl}/api/blocking-rules/${ruleId}`, payload, { headers })
+    return this.httpClient.patch<RuleResponse>(`${this.apiUrl}/api/rules/${ruleId}`, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -94,19 +94,18 @@ export interface RuleResponse {
   rule_type: string;
   rule_value: string;
   description: string;
-  is_active: boolean;
-  id: number;
-  managed_profile_id: number;
+  active: boolean;
+  id: string;
   created_at: string;
 }
 
 export interface RuleRequest {
-  rule_type: 'URL_EXACTA' | 'DOMINIO' | 'PALABRA_CLAVE_URL';
+  rule_type: 'URL' | 'DOMAIN' | 'KEYWORD';
   rule_value: string;
   description: string;
-  is_active: boolean;
+  active: boolean;
 }
 
 export interface RuleEditRequest {
-  is_active: boolean;
+  active: boolean;
 }
