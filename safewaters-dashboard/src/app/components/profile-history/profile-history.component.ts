@@ -116,10 +116,6 @@ export class ProfileHistoryComponent implements OnInit, AfterViewInit {
     this.loadNavigationData();
   }
 
-  createRule() {
-    console.log('Creating a new rule for profile ID:', this.profileId);
-  }
-
   viewRuleDetails(row: NavigationHistoryResponse): void {
     if (!row.blocking_rule_id || !row.blocking_rule_name) {
       console.warn('No hay información de regla de bloqueo disponible para esta entrada');

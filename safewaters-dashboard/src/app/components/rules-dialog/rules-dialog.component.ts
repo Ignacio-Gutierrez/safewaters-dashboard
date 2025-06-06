@@ -47,7 +47,7 @@ export class RulesDialogComponent {
       rule_type: ['', Validators.required],
       rule_value: ['', [Validators.required, Validators.maxLength(255), this.validateRuleValue.bind(this)]],
       description: ['', Validators.maxLength(255)],
-      name: ['', Validators.maxLength(20)],
+      name: ['', [Validators.required, Validators.maxLength(20)]],
       active: [true]
     });
 
