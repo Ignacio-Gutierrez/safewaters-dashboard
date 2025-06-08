@@ -53,10 +53,22 @@ export interface NavigationHistoryResponse {
   id: string;
   visited_url: string;
   blocked: boolean;
-  manaded_profile_id: string;
   visited_at: string;
+  
+  // Datos del perfil (desnormalizados)
+  profile_id: string;
+  profile_name: string;
+  
+  // Datos del usuario (desnormalizados)
+  user_id: string;
+  user_email: string;
+  user_username: string | null;
+  
+  // Datos de la regla de bloqueo (si hay)
   blocking_rule_id: string | null;
   blocking_rule_name: string | null;
+  blocking_rule_type: string | null;
+  blocking_rule_value: string | null;
   blocking_rule_description: string | null;
 }
 
