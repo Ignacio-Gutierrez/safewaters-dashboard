@@ -6,7 +6,9 @@
             <!-- Visited URL Column -->
             <ng-container matColumnDef="visited_url">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> URL Visitada </th>
-                <td mat-cell *matCellDef="let row"> {{row.visited_url}} </td>
+                <td mat-cell *matCellDef="let row" class="truncate max-w-xs"> 
+                    <span [title]="row.visited_url">{{row.visited_url}}</span>
+                </td>
             </ng-container>
 
             <!-- Visited Date Column -->
