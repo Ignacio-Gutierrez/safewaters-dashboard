@@ -68,6 +68,22 @@ export class ManagedProfilesService {
       );
   }
 
+  updateUrlChecking(id: string, urlCheckingEnabled: boolean): Observable<ManagedProfileResponse> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+
+    const payload = { url_checking_enabled: urlCheckingEnabled };
+
+    return this.httpClient.patch<ManagedProfileResponse>(`${this.apiUrl}/api/managed_profiles/${id}`, payload, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     let logMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {
@@ -96,6 +112,7 @@ export interface ManagedProfileResponse {
   created_at: string;
   manager_user_id: string;
   blocking_rules_count: number;
+  url_checking_enabled: boolean;
 }
 
 export interface ManagedProfileRequest {

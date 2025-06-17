@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ManagedProfilesService, ManagedProfileResponse } from '../../services/managed-profiles.service';
+import { ManagedProfilesService, ManagedProfileResponse, ManagedProfileRequest } from '../../services/managed-profiles.service';
 import { CommonModule } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
@@ -106,6 +106,27 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  toggleUrlChecking(id: string, urlCheckingEnabled: boolean): void {
+
+    this.managedProfilesService.updateUrlChecking(id, urlCheckingEnabled).subscribe({
+      next: (updatedProfile) => {
+        const index = this.managedProfiles.findIndex(p => p._id === id);
+        if (index !== -1) {
+          this.managedProfiles[index] = updatedProfile;
+        }
+        console.log('Profile updated successfully', updatedProfile);
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error('Error updating profile', err);
+        if (err.status === 409) {
+          alert(err.error.detail || 'No se puede cambiar el estado de verificación de URL porque el perfil tiene historial de navegación o reglas de bloqueo asociadas.');
+        } else {
+          alert('Ocurrió un error al intentar actualizar el perfil. Por favor, inténtelo de nuevo.');
+        }
+        this.loadManagedProfiles();
+      }
+    });
+  }
 
   copyToken(token: string): void {
     navigator.clipboard.writeText(token).then(() => {
@@ -121,13 +142,13 @@ export class DashboardComponent implements OnInit {
     textArea.value = token;
     document.body.appendChild(textArea);
     textArea.select();
-    
+
     try {
       document.execCommand('copy');
     } catch (err) {
       console.error('Fallback copy failed:', err);
     }
-    
+
     document.body.removeChild(textArea);
   }
 }

@@ -44,6 +44,19 @@
                     <span class="font-semibold text-gray-800">Reglas activas:</span>
                     <span class="ml-1 text-gray-700">{{ profile.blocking_rules_count }}</span>
                 </div>
+
+                <div class="flex items-center cursor-pointer pt-2 pb-2 hover:bg-gray-200 rounded"
+                    (click)="toggleUrlChecking(profile._id, !profile.url_checking_enabled); $event.stopPropagation()"
+                    [title]="profile.url_checking_enabled ? 'Haz clic para desactivar' : 'Haz clic para activar'">
+                    <mat-icon class="mr-2" [ngClass]="profile.url_checking_enabled ? 'text-green-600' : 'text-red-600'">
+                        {{ profile.url_checking_enabled ? 'toggle_on' : 'toggle_off' }}
+                    </mat-icon>
+                    <span class="font-semibold text-gray-800">Verificación de URLs:</span>
+                    <span class="ml-1" [ngClass]="profile.url_checking_enabled ? 'text-green-600' : 'text-red-600'">
+                        {{ profile.url_checking_enabled ? 'Activa' : 'Inactiva' }}
+                    </span>
+                </div>
+
             </mat-card-content>
 
             <mat-divider class="border-gray-400"></mat-divider>
