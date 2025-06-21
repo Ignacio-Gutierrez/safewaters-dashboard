@@ -103,7 +103,6 @@ export class RegisterComponent {
 
       if (password !== confirmPassword) {
         currentForm.get('confirmPassword')?.setErrors({ notmatched: true });
-        console.error('Las contraseñas no coinciden');
         return;
       }
 
@@ -111,7 +110,6 @@ export class RegisterComponent {
 
       this.authService.register(registerRequest).subscribe({
         next: (response) => {
-          console.log('Registro exitoso', response);
           this.router.navigateByUrl('/login');
         },
         error: (errorResponse) => {
@@ -133,7 +131,6 @@ export class RegisterComponent {
       });
     } else {
       currentForm.markAllAsTouched();
-      console.log('Formulario no válido');
     }
   }
 

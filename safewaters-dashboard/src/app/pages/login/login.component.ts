@@ -71,7 +71,6 @@ export class LoginComponent {
         next: (response) => {
           localStorage.setItem('access_token', response.access_token);
           this.router.navigate(['/dashboard']);
-          console.log('Login exitoso:', response);
         },
         error: (err) => {
           console.error('Error en login:', err);
@@ -82,8 +81,6 @@ export class LoginComponent {
           }
         },
       });
-    } else {
-      console.error('Formulario inválido');
     }
   }
 

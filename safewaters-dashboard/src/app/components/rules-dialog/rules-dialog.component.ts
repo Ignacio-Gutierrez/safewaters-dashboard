@@ -102,12 +102,9 @@ export class RulesDialogComponent {
       active: this.createRuleForm.value.active,
       name: this.createRuleForm.value.name || 'Sin nombre'
     };
-
-    console.log('Creating rule with payload:', payload);
     
     this.rulesService.createRuleByManagedProfileId(this.data.managedProfileId, payload).subscribe({
       next: (response: RuleResponse) => {
-        console.log('Rule created successfully:', response);
         this.isSaving = false;
         this.dialogRef.close(response);
       },

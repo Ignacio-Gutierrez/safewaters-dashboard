@@ -71,7 +71,6 @@ export class DashboardComponent implements OnInit {
     if (confirm('¿Está seguro de que desea eliminar este perfil?')) {
       this.managedProfilesService.deleteManagedProfile(id).subscribe({
         next: () => {
-          console.log('Profile deleted successfully');
           this.loadManagedProfiles();
         },
         error: (err: HttpErrorResponse) => {
@@ -87,7 +86,6 @@ export class DashboardComponent implements OnInit {
   }
 
   viewProfileDetails(id: string, profile_name: string): void {
-    console.log('Attempting to view profile with id:', id);
     this.router.navigate(['/profile', id, profile_name]);
   }
 
@@ -98,9 +96,7 @@ export class DashboardComponent implements OnInit {
       data: { isEditMode: false }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result) {
-        console.log('Profile created:', result);
         this.loadManagedProfiles();
       }
     });
@@ -114,7 +110,6 @@ export class DashboardComponent implements OnInit {
         if (index !== -1) {
           this.managedProfiles[index] = updatedProfile;
         }
-        console.log('Profile updated successfully', updatedProfile);
       },
       error: (err: HttpErrorResponse) => {
         console.error('Error updating profile', err);
@@ -130,7 +125,6 @@ export class DashboardComponent implements OnInit {
 
   copyToken(token: string): void {
     navigator.clipboard.writeText(token).then(() => {
-      console.log('Token copied to clipboard');
     }).catch(err => {
       console.error('Error copying token:', err);
       this.fallbackCopyToken(token);

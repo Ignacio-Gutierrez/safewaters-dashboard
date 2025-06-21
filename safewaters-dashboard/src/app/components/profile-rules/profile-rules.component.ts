@@ -85,7 +85,6 @@ export class ProfileRulesComponent implements OnInit {
     if (confirm('¿Estás seguro de que quieres eliminar esta regla?')) {
       this.rulesService.deleteRuleByManagedProfileId(ruleId).subscribe({
         next: () => {
-          console.log('Rule deleted successfully');
           this.loadProfileRules();
         },
         error: (err: HttpErrorResponse) => {
@@ -108,9 +107,7 @@ export class ProfileRulesComponent implements OnInit {
       data: { managedProfileId: this.managedProfileId }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result) {
-        console.log('Rule created:', result);
         this.loadProfileRules();
       }
     });
@@ -130,7 +127,6 @@ export class ProfileRulesComponent implements OnInit {
         if (index !== -1) {
           this.managedProfilesRules[index] = updatedRule;
         }
-        console.log('Estado de la regla actualizado con éxito:', updatedRule);
       },
       error: (error) => {
         console.error('Error al actualizar el estado de la regla:', error);
