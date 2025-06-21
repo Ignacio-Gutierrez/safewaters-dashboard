@@ -1,0 +1,104 @@
+<div>
+    <div class="flex justify-end m-4">
+        <button mat-fab extended (click)="createRule()">
+            <mat-icon>gavel</mat-icon>
+            <span class="text-base">Nueva regla</span>
+        </button>
+    </div>
+
+
+    @if (!isLoading && !errorLoadingRules && managedProfilesRules.length > 0) {
+    <div class="flex flex-wrap justify-self-center gap-5">
+        @for (rule of managedProfilesRules; track rule.id) {
+        <mat-card appearance="outlined"
+            class="min-w-[22rem] w-[24rem] max-w-[24rem] shadow-sm rounded-xl border border-gray-400 flex flex-col">
+
+            <mat-card-header class="flex items-center p-2">
+                <div class="flex items-center">
+                    <mat-icon class="mr-4 text-gray-600">rule</mat-icon>
+                    <span class="font-semibold text-gray-800 text-xl">{{ rule.name }}</span>
+                </div>
+            </mat-card-header>
+
+            <mat-divider class="border-gray-400"></mat-divider>
+
+            <mat-card-content class="space-y-3 pt-4 pb-4 flex-grow">
+                <div class="flex items-center">
+                    <mat-icon class="mr-2 text-gray-600">category</mat-icon>
+                    <span class="font-semibold text-gray-800">Tipo:</span>
+                    <span class="ml-1 text-gray-700">{{ rule.rule_type }}</span>
+                </div>
+
+                <div class="flex items-center">
+                    <mat-icon class="mr-2 text-gray-600">text_fields</mat-icon>
+                    <span class="font-semibold text-gray-800">Valor:</span>
+                    <span class="ml-1 text-gray-700 truncate" [title]="rule.rule_value">
+                        {{ rule.rule_value }}
+                    </span>
+                </div>
+
+                <div class="flex items-center">
+                    <mat-icon class="mr-2 text-gray-600">description</mat-icon>
+                    <span class="font-semibold text-gray-800">Descripción:</span>
+                </div>
+                <div class="ml-8 text-gray-700">
+                    {{ rule.description }}
+                </div>
+
+                <div class="flex items-center cursor-pointer pt-2 pb-2 hover:bg-gray-200 rounded"
+                    (click)="toggleRuleStatus(rule.active , rule.id); $event.stopPropagation()"
+                    [title]="rule.active ? 'Haz clic para desactivar' : 'Haz clic para activar'">
+                    <mat-icon class="mr-2" [class]="rule.active ? 'text-green-600' : 'text-red-600'">toggle_{{
+                        rule.active ? 'on' : 'off' }}</mat-icon>
+                    <span class="font-semibold text-gray-800">Estado:</span>
+                    <span class="ml-1" [class]="rule.active ? 'text-green-600' : 'text-red-600'">
+                        {{ rule.active ? 'Activa' : 'Inactiva' }}
+                    </span>
+                </div>
+
+                <div class="flex items-center">
+                    <mat-icon class="mr-2 text-gray-600">schedule</mat-icon>
+                    <span class="font-semibold text-gray-800">Creada:</span>
+                    <span class="ml-1 text-gray-700">{{ rule.created_at | date:'short' }}</span>
+                </div>
+            </mat-card-content>
+
+            <div class="h-14 flex-shrink-0">
+                <mat-divider class="border-gray-400"></mat-divider>
+
+                <mat-card-actions class="flex justify-end p-2">
+                    <button mat-stroked-button color="warn"
+                        (click)="deleteProfileRule(rule.id); $event.stopPropagation()">
+                        <mat-icon class="mr-1">delete</mat-icon> Eliminar
+                    </button>
+                </mat-card-actions>
+            </div>
+        </mat-card>
+        }
+    </div>
+
+    } @else {
+    <div class="flex justify-center items-center h-[80%]">
+        @if (isLoading) {
+        <div class="text-center">
+            <p class="font-pirata-one text-2xl mb-2">Cargando perfiles...</p>
+            <mat-spinner class="mx-auto"></mat-spinner>
+        </div>
+        }
+        @if (errorLoadingRules && !isLoading) {
+        <div class="mt-6 text-center">
+            <mat-icon class="text-[40px] h-[40px] w-[40px]">info</mat-icon>
+            <p>Error al cargar los perfiles. Por favor, inténtalo de nuevo más
+                tarde.
+            </p>
+        </div>
+        }
+        @if (!isLoading && !errorLoadingRules&& managedProfilesRules.length === 0) {
+        <div class="mt-6 text-center">
+            <mat-icon class="text-[40px] h-[40px] w-[40px]">info</mat-icon>
+            <p class="text-xl mt-2">No hay perfiles gestionados para mostrar.</p>
+        </div>
+        }
+    </div>
+    }
+</div>

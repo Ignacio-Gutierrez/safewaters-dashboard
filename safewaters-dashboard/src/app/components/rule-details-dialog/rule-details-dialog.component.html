@@ -1,0 +1,51 @@
+<div mat-dialog-content>
+    <div class="flex items-center gap-2 mb-4">
+        <mat-icon class="text-[var(--mat-sys-primary)] text-7 h-7 w-7 align-middle">security</mat-icon>
+        <h2 class="text-xl font-medium text-[#333] m-0">Detalles de la Regla de Bloqueo</h2>
+    </div>
+
+    <mat-divider class="m-4"></mat-divider>
+
+    <div class="m-4">
+
+        <div class="flex items-start my-3">
+            <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">Nombre:</span>
+            <span class="flex-1 text-gray-700 break-words">{{ data.blocking_rule_name || 'Sin nombre' }}</span>
+        </div>
+
+        <div class="flex items-start my-3">
+            <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">Descripción:</span>
+            <span class="flex-1 text-gray-700 break-words">{{ data.blocking_rule_description || 'Sin descripción'
+                }}</span>
+        </div>
+
+        <div class="flex items-start my-3">
+            <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">Estado:</span>
+            <span class="flex-1 text-gray-700 break-words">{{ data.blocking_rule_enabled ? 'Activa' : 'Inactiva'
+                }}</span>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="mt-4">
+            <h3 class="mt-4 mb-3 text-gray-800 font-medium text-base">URL Bloqueada</h3>
+            <div class="flex items-start my-3">
+                <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">URL:</span>
+                <span class="flex-1 text-gray-700 break-words font-mono bg-gray-100 px-2 py-0.5 truncate">{{ data.visited_url
+                    }}</span>
+            </div>
+
+            <div class="flex items-start my-3">
+                <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">Fecha de Bloqueo:</span>
+                <span class="flex-1 text-gray-700 break-words">{{ data.visited_at | date:'medium' }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions class="flex justify-end p-4">
+    <button mat-button (click)="close()">
+        <mat-icon>close</mat-icon>
+        Cerrar
+    </button>
+</div>

@@ -1,0 +1,100 @@
+<app-navbar></app-navbar>
+
+<div class="w-full h-full p-5 flex flex-col items-center">
+
+    <div class="flex justify-between items-center mt-20 border-b-2 pb-2 mb-6 w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%]">
+        <h2 class="text-2xl font-bold text-gray-800 tracking-wider">
+            Perfiles Gestionados
+        </h2>
+        <button mat-fab extended (click)="createProfile()">
+            <mat-icon>add_moderator</mat-icon>
+            <span class="text-base">Nuevo perfil</span>
+        </button>
+    </div>
+
+    @if (!isLoading && !errorLoadingProfiles && managedProfiles.length > 0) {
+    <div class="flex flex-wrap justify-self-center gap-5 max-w-[96rem]">
+        @for (profile of managedProfiles; track profile._id) {
+        <mat-card appearance="outlined"
+            class="min-w-[22rem] max-w-xl cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95 border-gray-400"
+            (click)="viewProfileDetails(profile._id, profile.name)">
+            <mat-card-header>
+                <mat-card-title-group class="flex flex-col pb-2">
+                    <div class="flex items-center">
+                        <mat-icon>admin_panel_settings</mat-icon>
+                        <mat-card-title class="font-medium self-start ml-1">{{ profile.name }}</mat-card-title>
+                    </div>
+                </mat-card-title-group>
+            </mat-card-header>
+
+            <mat-divider class="border-gray-400"></mat-divider>
+
+            <mat-card-content class="space-y-3 pt-4 pb-4">
+                <div class="flex items-center mt-1">
+                    <mat-icon class="mr-2 text-gray-600">qr_code</mat-icon>
+                    <span class="font-semibold text-gray-800">Token de enlace:</span>
+                </div>
+                <div class="mb-6">
+                    <span class="ml-1 text-gray-700">{{ profile.token }}</span>
+                </div>
+
+
+                <div class="flex items-center mt-1 mb-1">
+                    <mat-icon class="mr-2 text-gray-600">gavel</mat-icon>
+                    <span class="font-semibold text-gray-800">Reglas activas:</span>
+                    <span class="ml-1 text-gray-700">{{ profile.blocking_rules_count }}</span>
+                </div>
+
+                <div class="flex items-center cursor-pointer pt-2 pb-2 hover:bg-gray-200 rounded"
+                    (click)="toggleUrlChecking(profile._id, !profile.url_checking_enabled); $event.stopPropagation()"
+                    [title]="profile.url_checking_enabled ? 'Haz clic para desactivar' : 'Haz clic para activar'">
+                    <mat-icon class="mr-2" [ngClass]="profile.url_checking_enabled ? 'text-green-600' : 'text-red-600'">
+                        {{ profile.url_checking_enabled ? 'toggle_on' : 'toggle_off' }}
+                    </mat-icon>
+                    <span class="font-semibold text-gray-800">Verificación de URLs:</span>
+                    <span class="ml-1" [ngClass]="profile.url_checking_enabled ? 'text-green-600' : 'text-red-600'">
+                        {{ profile.url_checking_enabled ? 'Activa' : 'Inactiva' }}
+                    </span>
+                </div>
+
+            </mat-card-content>
+
+            <mat-divider class="border-gray-400"></mat-divider>
+
+            <mat-card-actions class="flex justify-around">
+                <button mat-flat-button (click)="copyToken(profile.token); $event.stopPropagation()">
+                    Copiar Token
+                    <mat-icon class="ml-1">content_copy</mat-icon>
+                </button>
+                <button mat-stroked-button (click)="deleteProfile(profile._id); $event.stopPropagation()">
+                    Eliminar</button>
+            </mat-card-actions>
+        </mat-card>
+        }
+    </div>
+
+    } @else {
+    <div class="flex justify-center items-center h-[80%]">
+        @if (isLoading) {
+        <div class="text-center">
+            <p class="font-pirata-one text-2xl mb-2">Cargando perfiles...</p>
+            <mat-spinner class="mx-auto"></mat-spinner>
+        </div>
+        }
+        @if (errorLoadingProfiles && !isLoading) {
+        <div class="mt-6 text-center">
+            <mat-icon class="text-[40px] h-[40px] w-[40px]">info</mat-icon>
+            <p>Error al cargar los perfiles. Por favor, inténtalo de nuevo más
+                tarde.
+            </p>
+        </div>
+        }
+        @if (!isLoading && !errorLoadingProfiles && managedProfiles.length === 0) {
+        <div class="mt-6 text-center">
+            <mat-icon class="text-[40px] h-[40px] w-[40px]">info</mat-icon>
+            <p class="text-xl mt-2">No hay perfiles gestionados para mostrar.</p>
+        </div>
+        }
+    </div>
+    }
+</div>
