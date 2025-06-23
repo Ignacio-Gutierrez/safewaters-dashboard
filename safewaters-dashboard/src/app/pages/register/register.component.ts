@@ -62,9 +62,9 @@ export function hasNoSpacesValidator(control: AbstractControl): ValidationErrors
 export class RegisterComponent {
   registerForm = signal(
     new FormGroup({
-      username: new FormControl('testuser', { nonNullable: true, validators: [Validators.required] }),
-      email: new FormControl('user1@example.com', { nonNullable: true, validators: [Validators.required, Validators.email] }),
-      password: new FormControl('aStrongPassword123!', {
+      username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+      password: new FormControl('', {
         nonNullable: true,
         validators: [
           Validators.required,
@@ -76,7 +76,7 @@ export class RegisterComponent {
           hasNoSpacesValidator
         ]
       }),
-      confirmPassword: new FormControl('aStrongPassword123!', { nonNullable: true, validators: [Validators.required] })
+      confirmPassword: new FormControl('', { nonNullable: true, validators: [Validators.required] })
     })
   );
 
