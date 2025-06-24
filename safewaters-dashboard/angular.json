@@ -64,8 +64,7 @@
               "buildTarget": "safewaters-dashboard:build:production"
             },
             "development": {
-              "buildTarget": "safewaters-dashboard:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "safewaters-dashboard:build:development"
             }
           },
           "defaultConfiguration": "development"
