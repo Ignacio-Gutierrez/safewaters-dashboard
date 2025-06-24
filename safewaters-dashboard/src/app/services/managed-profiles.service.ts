@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { catchError, throwError, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManagedProfilesService {
-  private readonly apiUrl = '/api';
+  private readonly apiUrl = environment.apiUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -21,7 +22,8 @@ export class ManagedProfilesService {
       'accept': 'application/json'
     });
 
-    return this.httpClient.get<ManagedProfileResponse[]>(`${this.apiUrl}/api/managed_profiles/`, { headers })
+    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/` : `${this.apiUrl}/api/managed_profiles/`;
+    return this.httpClient.get<ManagedProfileResponse[]>(endpoint, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -34,7 +36,8 @@ export class ManagedProfilesService {
       'accept': 'application/json'
     });
 
-    return this.httpClient.delete(`${this.apiUrl}/api/managed_profiles/${id}`, { headers })
+    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/${id}` : `${this.apiUrl}/api/managed_profiles/${id}`;
+    return this.httpClient.delete(endpoint, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -48,7 +51,8 @@ export class ManagedProfilesService {
       'Content-Type': 'application/json'
     });
 
-    return this.httpClient.post<ManagedProfileResponse>(`${this.apiUrl}/api/managed_profiles/`, payload, { headers })
+    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/` : `${this.apiUrl}/api/managed_profiles/`;
+    return this.httpClient.post<ManagedProfileResponse>(endpoint, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -62,7 +66,8 @@ export class ManagedProfilesService {
       'Content-Type': 'application/json'
     });
 
-    return this.httpClient.put<ManagedProfileResponse>(`${this.apiUrl}/api/managed_profiles/${id}`, payload, { headers })
+    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/${id}` : `${this.apiUrl}/api/managed_profiles/${id}`;
+    return this.httpClient.put<ManagedProfileResponse>(endpoint, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -77,8 +82,9 @@ export class ManagedProfilesService {
     });
 
     const payload = { url_checking_enabled: urlCheckingEnabled };
+    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/${id}` : `${this.apiUrl}/api/managed_profiles/${id}`;
 
-    return this.httpClient.patch<ManagedProfileResponse>(`${this.apiUrl}/api/managed_profiles/${id}`, payload, { headers })
+    return this.httpClient.patch<ManagedProfileResponse>(endpoint, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );

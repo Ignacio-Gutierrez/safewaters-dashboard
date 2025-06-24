@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { catchError, throwError, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RulesService {
-  private readonly apiUrl = '/api';
+  private readonly apiUrl = environment.apiUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -22,7 +23,8 @@ export class RulesService {
       'accept': 'application/json'
     });
 
-    return this.httpClient.get<RuleResponse[]>(`${this.apiUrl}/api/rules/profile/${managedProfileId}`, { headers })
+    const endpoint = environment.production ? `${this.apiUrl}/rules/profile/${managedProfileId}` : `${this.apiUrl}/api/rules/profile/${managedProfileId}`;
+    return this.httpClient.get<RuleResponse[]>(endpoint, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -34,7 +36,9 @@ export class RulesService {
       'Authorization': `Bearer ${token}`,
       'accept': 'application/json'
     });
-    return this.httpClient.delete(`${this.apiUrl}/api/rules/${ruleId}`, { headers })
+    
+    const endpoint = environment.production ? `${this.apiUrl}/rules/${ruleId}` : `${this.apiUrl}/api/rules/${ruleId}`;
+    return this.httpClient.delete(endpoint, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -48,7 +52,8 @@ export class RulesService {
       'Content-Type': 'application/json'
     });
 
-    return this.httpClient.post<RuleResponse>(`${this.apiUrl}/api/rules/profile/${managedProfileId}`, payload, { headers })
+    const endpoint = environment.production ? `${this.apiUrl}/rules/profile/${managedProfileId}` : `${this.apiUrl}/api/rules/profile/${managedProfileId}`;
+    return this.httpClient.post<RuleResponse>(endpoint, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -62,7 +67,8 @@ export class RulesService {
       'Content-Type': 'application/json'
     });
 
-    return this.httpClient.patch<RuleResponse>(`${this.apiUrl}/api/rules/${ruleId}`, payload, { headers })
+    const endpoint = environment.production ? `${this.apiUrl}/rules/${ruleId}` : `${this.apiUrl}/api/rules/${ruleId}`;
+    return this.httpClient.patch<RuleResponse>(endpoint, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );

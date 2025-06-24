@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { catchError, throwError, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationHistoryService {
-  private readonly apiUrl = '/api';
+  private readonly apiUrl = environment.apiUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -21,9 +22,11 @@ export class NavigationHistoryService {
       'accept': 'application/json'
     });
 
-    const requestUrl = `${this.apiUrl}/api/navigation-history/profile/${managedProfileId}?page=${page}&page_size=${pageSize}&blocked_only=${blocked}`;
+    const endpoint = environment.production 
+      ? `${this.apiUrl}/navigation-history/profile/${managedProfileId}?page=${page}&page_size=${pageSize}&blocked_only=${blocked}`
+      : `${this.apiUrl}/api/navigation-history/profile/${managedProfileId}?page=${page}&page_size=${pageSize}&blocked_only=${blocked}`;
     
-    return this.httpClient.get<PaginatedHistoryResponse>(requestUrl, { headers })
+    return this.httpClient.get<PaginatedHistoryResponse>(endpoint, { headers })
       .pipe(
         catchError(this.handleError.bind(this))
       );
