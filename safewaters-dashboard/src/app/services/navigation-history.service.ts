@@ -21,12 +21,8 @@ export class NavigationHistoryService {
       'Authorization': `Bearer ${token}`,
       'accept': 'application/json'
     });
-
-    const endpoint = environment.production 
-      ? `${this.apiUrl}/navigation-history/profile/${managedProfileId}?page=${page}&page_size=${pageSize}&blocked_only=${blocked}`
-      : `${this.apiUrl}/api/navigation-history/profile/${managedProfileId}?page=${page}&page_size=${pageSize}&blocked_only=${blocked}`;
     
-    return this.httpClient.get<PaginatedHistoryResponse>(endpoint, { headers })
+    return this.httpClient.get<PaginatedHistoryResponse>(`${this.apiUrl}/api/navigation-history/profile/${managedProfileId}?page=${page}&page_size=${pageSize}&blocked_only=${blocked}`, { headers })
       .pipe(
         catchError(this.handleError.bind(this))
       );

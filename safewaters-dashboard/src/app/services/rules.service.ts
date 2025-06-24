@@ -23,8 +23,7 @@ export class RulesService {
       'accept': 'application/json'
     });
 
-    const endpoint = environment.production ? `${this.apiUrl}/rules/profile/${managedProfileId}` : `${this.apiUrl}/api/rules/profile/${managedProfileId}`;
-    return this.httpClient.get<RuleResponse[]>(endpoint, { headers })
+    return this.httpClient.get<RuleResponse[]>(`${this.apiUrl}/api/rules/profile/${managedProfileId}`, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -37,8 +36,7 @@ export class RulesService {
       'accept': 'application/json'
     });
     
-    const endpoint = environment.production ? `${this.apiUrl}/rules/${ruleId}` : `${this.apiUrl}/api/rules/${ruleId}`;
-    return this.httpClient.delete(endpoint, { headers })
+    return this.httpClient.delete(`${this.apiUrl}/api/rules/${ruleId}`, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -52,8 +50,7 @@ export class RulesService {
       'Content-Type': 'application/json'
     });
 
-    const endpoint = environment.production ? `${this.apiUrl}/rules/profile/${managedProfileId}` : `${this.apiUrl}/api/rules/profile/${managedProfileId}`;
-    return this.httpClient.post<RuleResponse>(endpoint, payload, { headers })
+    return this.httpClient.post<RuleResponse>(`${this.apiUrl}/api/rules/profile/${managedProfileId}`, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -67,8 +64,7 @@ export class RulesService {
       'Content-Type': 'application/json'
     });
 
-    const endpoint = environment.production ? `${this.apiUrl}/rules/${ruleId}` : `${this.apiUrl}/api/rules/${ruleId}`;
-    return this.httpClient.patch<RuleResponse>(endpoint, payload, { headers })
+    return this.httpClient.patch<RuleResponse>(`${this.apiUrl}/api/rules/${ruleId}`, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );

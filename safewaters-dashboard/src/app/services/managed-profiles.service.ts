@@ -22,8 +22,7 @@ export class ManagedProfilesService {
       'accept': 'application/json'
     });
 
-    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/` : `${this.apiUrl}/api/managed_profiles/`;
-    return this.httpClient.get<ManagedProfileResponse[]>(endpoint, { headers })
+    return this.httpClient.get<ManagedProfileResponse[]>(`${this.apiUrl}/api/managed_profiles/`, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -36,8 +35,7 @@ export class ManagedProfilesService {
       'accept': 'application/json'
     });
 
-    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/${id}` : `${this.apiUrl}/api/managed_profiles/${id}`;
-    return this.httpClient.delete(endpoint, { headers })
+    return this.httpClient.delete(`${this.apiUrl}/api/managed_profiles/${id}`, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -51,8 +49,7 @@ export class ManagedProfilesService {
       'Content-Type': 'application/json'
     });
 
-    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/` : `${this.apiUrl}/api/managed_profiles/`;
-    return this.httpClient.post<ManagedProfileResponse>(endpoint, payload, { headers })
+    return this.httpClient.post<ManagedProfileResponse>(`${this.apiUrl}/api/managed_profiles/`, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -66,8 +63,7 @@ export class ManagedProfilesService {
       'Content-Type': 'application/json'
     });
 
-    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/${id}` : `${this.apiUrl}/api/managed_profiles/${id}`;
-    return this.httpClient.put<ManagedProfileResponse>(endpoint, payload, { headers })
+    return this.httpClient.put<ManagedProfileResponse>(`${this.apiUrl}/api/managed_profiles/${id}`, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
@@ -82,9 +78,8 @@ export class ManagedProfilesService {
     });
 
     const payload = { url_checking_enabled: urlCheckingEnabled };
-    const endpoint = environment.production ? `${this.apiUrl}/managed_profiles/${id}` : `${this.apiUrl}/api/managed_profiles/${id}`;
 
-    return this.httpClient.patch<ManagedProfileResponse>(endpoint, payload, { headers })
+    return this.httpClient.patch<ManagedProfileResponse>(`${this.apiUrl}/api/managed_profiles/${id}`, payload, { headers })
       .pipe(
         catchError(this.handleError)
       );
