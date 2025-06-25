@@ -13,7 +13,7 @@
     </div>
 
     @if (!isLoading && !errorLoadingProfiles && managedProfiles.length > 0) {
-    <div class="flex flex-wrap justify-center gap-5 max-w-[96rem] px-4">
+    <div class="flex flex-wrap justify-center gap-5 max-w-[96rem] px-4 pb-16">
         @for (profile of managedProfiles; track profile._id) {
         <mat-card appearance="outlined"
             class="w-80 cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95 border-gray-400 flex flex-col"

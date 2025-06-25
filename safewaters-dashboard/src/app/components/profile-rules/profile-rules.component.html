@@ -8,7 +8,7 @@
 
 
     @if (!isLoading && !errorLoadingRules && managedProfilesRules.length > 0) {
-    <div class="flex flex-wrap justify-center gap-5 px-4">
+    <div class="flex flex-wrap justify-center gap-5 px-4 pb-16">
         @for (rule of managedProfilesRules; track rule.id) {
         <mat-card appearance="outlined"
             class="w-80 shadow-sm rounded-xl border border-gray-400 flex flex-col">
