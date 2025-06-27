@@ -88,6 +88,10 @@ export class LoginComponent {
     this.router.navigateByUrl('/register');
   }
 
+  navigateToPasswordReset() {
+    this.router.navigateByUrl('/password-reset-request');
+  }
+
 }
 export interface LoginRequest {
   username?: string;

@@ -74,6 +74,24 @@ export class AuthService {
     return localStorage.getItem('access_token');
   }
 
+  requestPasswordReset(email: string): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.apiUrl}/api/auth/request-password-reset`,
+      { email }
+    ).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.apiUrl}/api/auth/reset-password`,
+      { token, new_password: newPassword }
+    ).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
 
     let logMessage = 'An unknown error occurred!';

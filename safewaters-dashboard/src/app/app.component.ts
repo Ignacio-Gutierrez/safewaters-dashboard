@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   title = 'safewaters-dashboard';
   showFab = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.router.events
@@ -33,11 +33,21 @@ export class AppComponent implements OnInit {
   }
 
   private updateFabVisibility(url: string): void {
-    const hideFabRoutes = ['/dashboard', '/login', '/register', '/'];
-    const isOnHiddenRoute = hideFabRoutes.some(route => 
-      url === route || (route === '/dashboard' && url === '/')
+    const hideFabRoutes = [
+      '/dashboard',
+      '/login',
+      '/register',
+      '/',
+      '/password-reset-request',
+      '/reset-password'
+    ];
+
+    const cleanUrl = url.split('?')[0].split('#')[0];
+
+    const isOnHiddenRoute = hideFabRoutes.some(route =>
+      cleanUrl === route
     );
-    
+
     this.showFab = !isOnHiddenRoute;
   }
 

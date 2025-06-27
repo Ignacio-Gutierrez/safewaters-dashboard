@@ -43,12 +43,17 @@
       }
     </div>
 
-    <button class="mb-5 w-full text-left cursor-pointer hover:underline active:text-yellow-900"
+    <button class="w-full text-right text-sm opacity-80 mb-2 hover:underline cursor-pointer"
+      (click)="navigateToPasswordReset()" style="color: #033A44;">
+      ¿Olvidaste tu contraseña?
+    </button>
+
+    <button mat-flat-button class="w-full rounded-lg mb-4" (click)="onSubmit()">Ingresar</button>
+
+    <button class="w-full text-left cursor-pointer hover:underline active:text-yellow-900"
       (click)="navigateToRegister()" style="color: var(--mat-sys-primary)">
       ¿No tenés cuenta? Registrate
     </button>
-
-    <button mat-flat-button class="w-full rounded-lg" (click)="onSubmit()">Ingresar</button>
 
   </div>
 </div>
