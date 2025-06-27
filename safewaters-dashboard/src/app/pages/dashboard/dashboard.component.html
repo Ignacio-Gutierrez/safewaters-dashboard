@@ -13,10 +13,10 @@
     </div>
 
     @if (!isLoading && !errorLoadingProfiles && managedProfiles.length > 0) {
-    <div class="flex flex-wrap justify-self-center gap-5 max-w-[96rem]">
+    <div class="flex flex-wrap justify-center gap-5 max-w-[96rem] px-4 pb-16">
         @for (profile of managedProfiles; track profile._id) {
         <mat-card appearance="outlined"
-            class="min-w-[22rem] max-w-xl cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95 border-gray-400"
+            class="w-80 cursor-pointer transition-all duration-100 ease-in-out hover:scale-102 hover:shadow-xl hover:shadow-[#48636a] active:brightness-95 border-gray-400 flex flex-col"
             (click)="viewProfileDetails(profile._id, profile.name)">
             <mat-card-header>
                 <mat-card-title-group class="flex flex-col pb-2">
@@ -29,13 +29,13 @@
 
             <mat-divider class="border-gray-400"></mat-divider>
 
-            <mat-card-content class="space-y-3 pt-4 pb-4">
+            <mat-card-content class="space-y-3 pt-4 pb-4 flex-grow">
                 <div class="flex items-center mt-1">
                     <mat-icon class="mr-2 text-gray-600">qr_code</mat-icon>
                     <span class="font-semibold text-gray-800">Token de enlace:</span>
                 </div>
                 <div class="mb-6">
-                    <span class="ml-1 text-gray-700">{{ profile.token }}</span>
+                    <span class="ml-1 text-gray-700 break-all">{{ profile.token }}</span>
                 </div>
 
 
@@ -61,7 +61,7 @@
 
             <mat-divider class="border-gray-400"></mat-divider>
 
-            <mat-card-actions class="flex justify-around">
+            <mat-card-actions class="flex justify-around h-16 items-center flex-shrink-0">
                 <button mat-flat-button (click)="copyToken(profile.token); $event.stopPropagation()">
                     Copiar Token
                     <mat-icon class="ml-1">content_copy</mat-icon>

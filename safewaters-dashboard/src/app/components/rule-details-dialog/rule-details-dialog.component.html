@@ -8,12 +8,12 @@
 
     <div class="m-4">
 
-        <div class="flex items-start my-3">
+        <div class="flex flex-col md:flex-row md:items-start my-3">
             <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">Nombre:</span>
             <span class="flex-1 text-gray-700 break-words">{{ data.blocking_rule_name || 'Sin nombre' }}</span>
         </div>
 
-        <div class="flex items-start my-3">
+        <div class="flex flex-col md:flex-row md:items-start my-3">
             <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">Descripción:</span>
             <span class="flex-1 text-gray-700 break-words">{{ data.blocking_rule_description || 'Sin descripción'
                 }}</span>
@@ -21,23 +21,27 @@
 
         <div class="flex items-start my-3">
             <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">Estado:</span>
-            <span class="flex-1 text-gray-700 break-words">{{ data.blocking_rule_enabled ? 'Activa' : 'Inactiva'
-                }}</span>
+            <span class="flex-1 text-gray-700">
+                <span class="inline-flex px-3 py-1 rounded-full font-medium {{ data.blocking_rule_enabled ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                    {{ data.blocking_rule_enabled ? 'Activa' : 'Inactiva' }}
+                </span>
+            </span>
         </div>
 
         <mat-divider></mat-divider>
 
         <div class="mt-4">
             <h3 class="mt-4 mb-3 text-gray-800 font-medium text-base">URL Bloqueada</h3>
-            <div class="flex items-start my-3">
-                <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">URL:</span>
-                <span class="flex-1 text-gray-700 break-words font-mono bg-gray-100 px-2 py-0.5 truncate">{{ data.visited_url
-                    }}</span>
+            <div class="flex flex-col sm:flex-row sm:items-start my-3 gap-1">
+                <span class="font-semibold min-w-32 text-gray-600 tracking-wide">URL:</span>
+                <div class="flex-1 bg-gray-50 border rounded-md p-2">
+                    <code class="text-sm text-gray-700 break-all">{{ data.visited_url }}</code>
+                </div>
             </div>
 
-            <div class="flex items-start my-3">
-                <span class="font-semibold min-w-36 text-gray-600 mr-4 tracking-wide">Fecha de Bloqueo:</span>
-                <span class="flex-1 text-gray-700 break-words">{{ data.visited_at | date:'medium' }}</span>
+            <div class="flex flex-col sm:flex-row sm:items-start my-3 gap-1">
+                <span class="font-semibold min-w-32 text-gray-600 tracking-wide">Fecha de Bloqueo:</span>
+                <span class="flex-1 text-gray-700">{{ data.visited_at | date:'medium' }}</span>
             </div>
         </div>
     </div>

@@ -35,6 +35,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.development.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -64,8 +70,7 @@
               "buildTarget": "safewaters-dashboard:build:production"
             },
             "development": {
-              "buildTarget": "safewaters-dashboard:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "safewaters-dashboard:build:development"
             }
           },
           "defaultConfiguration": "development"

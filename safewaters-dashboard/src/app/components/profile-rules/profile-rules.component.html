@@ -8,10 +8,10 @@
 
 
     @if (!isLoading && !errorLoadingRules && managedProfilesRules.length > 0) {
-    <div class="flex flex-wrap justify-self-center gap-5">
+    <div class="flex flex-wrap justify-center gap-5 px-4 pb-16">
         @for (rule of managedProfilesRules; track rule.id) {
         <mat-card appearance="outlined"
-            class="min-w-[22rem] w-[24rem] max-w-[24rem] shadow-sm rounded-xl border border-gray-400 flex flex-col">
+            class="w-80 shadow-sm rounded-xl border border-gray-400 flex flex-col">
 
             <mat-card-header class="flex items-center p-2">
                 <div class="flex items-center">
@@ -29,12 +29,12 @@
                     <span class="ml-1 text-gray-700">{{ rule.rule_type }}</span>
                 </div>
 
-                <div class="flex items-center">
+                <div class="flex items-start">
                     <mat-icon class="mr-2 text-gray-600">text_fields</mat-icon>
                     <span class="font-semibold text-gray-800">Valor:</span>
-                    <span class="ml-1 text-gray-700 truncate" [title]="rule.rule_value">
-                        {{ rule.rule_value }}
-                    </span>
+                </div>
+                <div class="ml-8 text-gray-700 break-words" [title]="rule.rule_value">
+                    {{ rule.rule_value }}
                 </div>
 
                 <div class="flex items-center">
@@ -63,10 +63,10 @@
                 </div>
             </mat-card-content>
 
-            <div class="h-14 flex-shrink-0">
+            <div class="h-16 flex-shrink-0">
                 <mat-divider class="border-gray-400"></mat-divider>
 
-                <mat-card-actions class="flex justify-end p-2">
+                <mat-card-actions class="flex justify-end p-2 items-center h-full">
                     <button mat-stroked-button color="warn"
                         (click)="deleteProfileRule(rule.id); $event.stopPropagation()">
                         <mat-icon class="mr-1">delete</mat-icon> Eliminar

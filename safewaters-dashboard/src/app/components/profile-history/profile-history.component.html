@@ -1,25 +1,25 @@
 @if (dataSource.data.length > 0) {
-<div class="flex flex-col items-center justify-center mt-8">
+<div class="flex flex-col items-center justify-center mt-8 pb-20">
     <div class="mat-elevation-z8 w-full overflow-x-auto">
-        <table mat-table [dataSource]="dataSource" matSort class="shadow w-full min-w-fit">
+        <table mat-table [dataSource]="dataSource" class="shadow w-full min-w-fit">
 
-            <!-- Visited URL Column -->
+            <!-- Visited URL Column - Ahora con más espacio -->
             <ng-container matColumnDef="visited_url">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="min-w-[200px]"> URL Visitada </th>
-                <td mat-cell *matCellDef="let row" class="truncate max-w-[250px] sm:max-w-xs"> 
+                <th mat-header-cell *matHeaderCellDef class="min-w-[150px] sm:min-w-[250px] !font-semibold !text-[var(--mat-sys-on-primary-container)]"> URL </th>
+                <td mat-cell *matCellDef="let row" class="truncate max-w-[150px] sm:max-w-[250px] lg:max-w-xs text-xs sm:text-sm"> 
                     <span [title]="row.visited_url">{{row.visited_url}}</span>
                 </td>
             </ng-container>
 
-            <!-- Visited Date Column - Hidden on mobile -->
+            <!-- Visited Date Column - Más compacta -->
             <ng-container matColumnDef="visited_at">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden sm:table-cell min-w-[140px]"> Fecha </th>
-                <td mat-cell *matCellDef="let row" class="hidden sm:table-cell"> {{row.visited_at | date:'short'}} </td>
+                <th mat-header-cell *matHeaderCellDef class="hidden sm:table-cell min-w-[100px] lg:min-w-[140px] !font-semibold !text-[var(--mat-sys-on-primary-container)]"> Fecha </th>
+                <td mat-cell *matCellDef="let row" class="hidden sm:table-cell text-xs lg:text-sm"> {{row.visited_at | date:'short'}} </td>
             </ng-container>
 
-            <!-- Was Blocked Column -->
+            <!-- Was Blocked Column - Más compacta -->
             <ng-container matColumnDef="blocked">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center min-w-[80px]"> Estado </th>
+                <th mat-header-cell *matHeaderCellDef class="text-center w-20 !font-semibold !text-[var(--mat-sys-on-primary-container)]">Estado </th>
                 <td mat-cell *matCellDef="let row" class="text-center"> 
                     @if (row.blocked) {
                         <mat-icon class="text-red-600">block</mat-icon>
@@ -29,28 +29,28 @@
                 </td>
             </ng-container>
 
-            <!-- Rule Details Column - Now visible on mobile -->
+            <!-- Rule Details Column -->
             <ng-container matColumnDef="rule_details">
-                <th mat-header-cell *matHeaderCellDef class="text-center min-w-[80px]"> Detalles </th>
+                <th mat-header-cell *matHeaderCellDef class="text-center w-20 !font-semibold !text-[var(--mat-sys-on-primary-container)]"> Detalles </th>
                 <td mat-cell *matCellDef="let row" class="text-center"> 
                     @if (row.blocking_rule_name) {
                         <button mat-icon-button (click)="viewRuleDetails(row)" matTooltip="Ver detalles de la regla" matTooltipPosition="left" aria-label="Ver detalles de la regla">
                             <mat-icon>visibility</mat-icon>
                         </button>
                     } @else {
-                        -
+                        <span class="text-xs text-gray-400">-</span>
                     }
                 </td>
             </ng-container>
 
-            <!-- Blocking Rule Name Column - Hidden on mobile -->
+            <!-- Blocking Rule Name Column - Solo visible en desktop -->
             <ng-container matColumnDef="blocking_rule_name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden lg:table-cell min-w-[150px]"> Regla </th>
-                <td mat-cell *matCellDef="let row" class="hidden lg:table-cell"> {{row.blocking_rule_name || 'N/A'}} </td>
+                <th mat-header-cell *matHeaderCellDef class="hidden lg:table-cell min-w-[150px] !font-semibold !text-[var(--mat-sys-on-primary-container)]"> Regla </th>
+                <td mat-cell *matCellDef="let row" class="hidden lg:table-cell text-sm"> {{row.blocking_rule_name || 'N/A'}} </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay" class="!h-12 sm:!h-14 !bg-[var(--mat-sys-primary-container)] !border-b-2 !border-[var(--mat-sys-outline)]"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" class="!h-10 sm:!h-12"></tr>
         </table>
 
         <mat-paginator [length]="totalEntities" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
